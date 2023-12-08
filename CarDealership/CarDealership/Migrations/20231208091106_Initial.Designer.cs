@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarDealership.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231207105141_Initial")]
+    [Migration("20231208091106_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -67,6 +67,9 @@ namespace CarDealership.Migrations
                     b.Property<int>("Mileage")
                         .HasColumnType("int");
 
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Power")
                         .HasColumnType("int");
 
@@ -87,6 +90,8 @@ namespace CarDealership.Migrations
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CarColorId");
+
+                    b.HasIndex("ModelId");
 
                     b.ToTable("Cars");
                 });
@@ -367,9 +372,17 @@ namespace CarDealership.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CarDealership.Models.Model", "Model")
+                        .WithMany("Cars")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Brand");
 
                     b.Navigation("CarColor");
+
+                    b.Navigation("Model");
                 });
 
             modelBuilder.Entity("CarDealership.Models.Model", b =>
@@ -453,6 +466,11 @@ namespace CarDealership.Migrations
             modelBuilder.Entity("CarDealership.Models.Car", b =>
                 {
                     b.Navigation("Photos");
+                });
+
+            modelBuilder.Entity("CarDealership.Models.Model", b =>
+                {
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }

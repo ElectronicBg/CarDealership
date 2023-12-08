@@ -15,6 +15,11 @@ namespace CarDealership.Models
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
 
+        [ForeignKey("Model")]
+        public int ModelId { get; set; }  
+        public Model Model { get; set; }
+
+
         [EnumDataType(typeof(EngineType))]
         public EngineType EngineType { get; set; }
 

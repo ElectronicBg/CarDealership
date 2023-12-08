@@ -44,10 +44,24 @@ namespace CarDealership.Controllers
                 return RedirectToAction("Index");
             }
 
+            // If the model state is not valid, re-populate necessary data for the view
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
 
+            // Return to the Create view with validation errors
             return View(car);
+        }
+
+
+        [HttpGet]
+        public IActionResult GetModels(int brandId)
+        {
+            var models = _context.Models
+                .Where(m => m.BrandId == brandId)
+                .Select(m => new { m.ModelId, m.Name })
+                .ToList();
+
+            return Json(models);
         }
 
         // Update Car

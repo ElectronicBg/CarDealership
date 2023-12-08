@@ -5,13 +5,21 @@
 }
 
 <h2>Create Car</h2>
-<form method="post" asp-action="Add" asp-controller="Car">
+<form method="post" asp-action="Create" asp-controller="Car">
     <div class="form-group">
         <label asp-for="Brand"></label>
-        <select asp-for="Brand" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control">
+        <select asp-for="Brand" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
             <option value="">Select a brand</option>
         </select>
     </div>
+
+    <div class="form-group">
+        <label asp-for="ModelId"></label>
+        <select asp-for="ModelId" class="form-control" id="modelDropdown">
+            <option value="">Select a model</option>
+        </select>
+    </div>
+
     <div class="form-group">
         <label asp-for="EngineType"></label>
         <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
@@ -65,5 +73,31 @@
         <input asp-for="Price" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Create</button>
+    <button asp-action="Create" asp-controller="Car" type="submit" class="btn btn-primary">Create</button>
 </form>
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).on('change', '#brandDropdown', function () {
+            var brandId = $(this).val();
+
+            // Clear existing options in the model dropdown
+            $('#modelDropdown').html('<option value="">Select a model</option>');
+
+            if (brandId) {
+                // Use Url.Action to generate the correct URL
+                var url = '@Url.Action("GetModels", "Car")/' + brandId;
+
+                // Fetch models based on the selected brand
+                $.getJSON(url, function (models) {
+                    // Populate the model dropdown with fetched models
+                    $.each(models, function (index, model) {
+                        $('#modelDropdown').append('<option value="' + model.modelId + '">' + model.name + '</option>');
+                    });
+                });
+            }
+        });
+    </script>
+}
+
+

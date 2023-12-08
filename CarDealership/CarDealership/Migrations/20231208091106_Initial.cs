@@ -211,6 +211,7 @@ namespace CarDealership.Migrations
                     CarId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BrandId = table.Column<int>(type: "int", nullable: false),
+                    ModelId = table.Column<int>(type: "int", nullable: false),
                     EngineType = table.Column<int>(type: "int", nullable: false),
                     TransmissionType = table.Column<int>(type: "int", nullable: false),
                     CarColorId = table.Column<int>(type: "int", nullable: false),
@@ -236,6 +237,12 @@ namespace CarDealership.Migrations
                         column: x => x.CarColorId,
                         principalTable: "CarColors",
                         principalColumn: "CarColorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cars_Models_ModelId",
+                        column: x => x.ModelId,
+                        principalTable: "Models",
+                        principalColumn: "ModelId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -309,6 +316,11 @@ namespace CarDealership.Migrations
                 column: "CarColorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cars_ModelId",
+                table: "Cars",
+                column: "ModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Models_BrandId",
                 table: "Models",
                 column: "BrandId");
@@ -338,9 +350,6 @@ namespace CarDealership.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Models");
-
-            migrationBuilder.DropTable(
                 name: "Photo");
 
             migrationBuilder.DropTable(
@@ -353,10 +362,13 @@ namespace CarDealership.Migrations
                 name: "Cars");
 
             migrationBuilder.DropTable(
-                name: "Brands");
+                name: "CarColors");
 
             migrationBuilder.DropTable(
-                name: "CarColors");
+                name: "Models");
+
+            migrationBuilder.DropTable(
+                name: "Brands");
         }
     }
 }
