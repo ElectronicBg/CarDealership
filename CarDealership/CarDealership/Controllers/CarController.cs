@@ -57,7 +57,7 @@ namespace CarDealership.Controllers
                     _context.SaveChanges();
                 }
 
-                return View("Index", car); 
+                return View(car); 
             }
            
             ViewBag.Brands = _context.Brands.ToList();
