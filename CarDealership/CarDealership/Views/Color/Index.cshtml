@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CarDealership.Models.CarColor>
+@{
+    ViewData["Title"] = "Colors List";
+}
+
+<h2>Colors List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var color in Model)
+        {
+            <tr>
+                <td>@color.CarColorId</td>
+                <td>@color.Name</td>
+                <td>@color.Value</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@color.CarColorId" class="btn btn-primary">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-success">Add New Color</a>

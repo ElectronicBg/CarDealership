@@ -1,0 +1,15 @@
+﻿@model CarDealership.Models.Brand
+@{
+    ViewData["Title"] = "Add Brand";
+}
+
+<h2>Add Brand</h2>
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Brand</button>
+</form>

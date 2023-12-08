@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CarDealership.Models.Car>
+@{
+    ViewData["Title"] = "Cars List";
+}
+
+<h2>Cars List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Engine Type</th>
+            <th>Transmission Type</th>
+            <th>Car Color</th>
+            <th>Region</th>
+            <th>Year</th>
+            <th>Mileage</th>
+            <th>Power</th>
+            <th>Car Type</th>
+            <th>Condition</th>
+            <th>Price</th>
+            <th>Photos</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Brand.Name</td>
+                <td>@car.EngineType</td>
+                <td>@car.TransmissionType</td>
+                <td>@car.CarColor.Name</td>
+                <td>@car.Region</td>
+                <td>@car.Year</td>
+                <td>@car.Mileage</td>
+                <td>@car.Power</td>
+                <td>@car.CarType</td>
+                <td>@car.Condition</td>
+                <td>@car.Price</td>
+                <td>
+                    @foreach (var photo in car.Photos)
+                    {
+                        <img src="@photo.Url" alt="Car Photo" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@car.CarId" class="btn btn-primary">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@car.CarId" method="post" onsubmit="return confirm('Are you sure you want to delete this car?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Create" asp-controller="Car" class="btn btn-success">
+    Add New Car
+</a>

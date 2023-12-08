@@ -1,69 +1,68 @@
 ﻿@using CarDealership.Models.Enums
 @model CarDealership.Models.Car
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit Car";
 }
 
-<h2>Create Car</h2>
-<form method="post" asp-action="Add" asp-controller="Car">
+<h2>Edit Car</h2>
+<form method="post" asp-controller="Car" asp-action="Edit">
     <div class="form-group">
-        <label asp-for="Brand"></label>
-        <select asp-for="Brand" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control">
+        <label asp-for="BrandId" class="form-label"></label>
+        <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control">
             <option value="">Select a brand</option>
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="EngineType"></label>
+        <label asp-for="EngineType" class="form-label"></label>
         <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
             <option value="">Select an engine type</option>
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="TransmissionType"></label>
+        <label asp-for="TransmissionType" class="form-label"></label>
         <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
             <option value="">Select a transmission type</option>
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="CarColorId"></label>
+        <label asp-for="CarColorId" class="form-label"></label>
         <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
             <option value="">Select a car color</option>
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="Region"></label>
+        <label asp-for="Region" class="form-label"></label>
         <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
             <option value="">Select a region</option>
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="Year"></label>
+        <label asp-for="Year" class="form-label"></label>
         <input asp-for="Year" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Mileage"></label>
+        <label asp-for="Mileage" class="form-label"></label>
         <input asp-for="Mileage" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Power"></label>
+        <label asp-for="Power" class="form-label"></label>
         <input asp-for="Power" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="CarType"></label>
+        <label asp-for="CarType" class="form-label"></label>
         <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
             <option value="">Select a car type</option>
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="Condition"></label>
+        <label asp-for="Condition" class="form-label"></label>
         <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
             <option value="">Select a condition</option>
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="Price"></label>
+        <label asp-for="Price" class="form-label"></label>
         <input asp-for="Price" class="form-control" />
     </div>
-
-    <button type="submit" class="btn btn-primary">Create</button>
+    <input type="submit" value="Update" class="btn btn-primary" />
 </form>
