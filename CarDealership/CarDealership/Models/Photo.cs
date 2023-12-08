@@ -10,6 +10,7 @@ namespace CarDealership.Models
 
         [ForeignKey("CarId")]
         public int CarId { get; set; }
+        public Car Car { get; set; }
 
         public string Url { get; set; }
     }

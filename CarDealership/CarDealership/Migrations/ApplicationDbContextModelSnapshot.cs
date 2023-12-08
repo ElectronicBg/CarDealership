@@ -151,7 +151,7 @@ namespace CarDealership.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("Photo");
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("Cinema.Models.ApplicationUser", b =>
@@ -395,11 +395,13 @@ namespace CarDealership.Migrations
 
             modelBuilder.Entity("CarDealership.Models.Photo", b =>
                 {
-                    b.HasOne("CarDealership.Models.Car", null)
+                    b.HasOne("CarDealership.Models.Car", "Car")
                         .WithMany("Photos")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Car");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

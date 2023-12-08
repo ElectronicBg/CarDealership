@@ -1,0 +1,120 @@
+﻿using CarDealership.Data;
+using CarDealership.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+public class PhotoController : Controller
+{
+    private readonly ApplicationDbContext _context;
+
+    public PhotoController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    // GET: Photo/Index
+    public IActionResult Index()
+    {
+        var photos = _context.Photos.Include(p => p.Car).ToList();
+        return View(photos);
+    }
+
+    // GET: Photo/Create
+    public IActionResult Create()
+    {
+        ViewBag.Cars = _context.Cars.ToList();
+        return View();
+    }
+
+    // POST: Photo/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Photo photo)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Photos.Add(photo);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        ViewBag.Cars = _context.Cars.ToList();
+        return View(photo);
+    }
+
+    // GET: Photo/Edit/5
+    public IActionResult Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var photo = _context.Photos.Include(p => p.Car).FirstOrDefault(p => p.PhotoId == id);
+
+        if (photo == null)
+        {
+            return NotFound();
+        }
+
+        ViewBag.Cars = _context.Cars.ToList();
+        return View(photo);
+    }
+
+    // POST: Photo/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, Photo photo)
+    {
+        if (id != photo.PhotoId)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Entry(photo).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PhotoExists(photo.PhotoId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        ViewBag.Cars = _context.Cars.ToList();
+        return View(photo);
+    }
+
+    // POST: Photo/Delete/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        var photo = _context.Photos.Find(id);
+
+        if (photo == null)
+        {
+            return NotFound();
+        }
+
+        _context.Photos.Remove(photo);
+        _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
+    }
+
+    private bool PhotoExists(int id)
+    {
+        return _context.Photos.Any(e => e.PhotoId == id);
+    }
+}

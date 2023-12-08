@@ -247,7 +247,7 @@ namespace CarDealership.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Photo",
+                name: "Photos",
                 columns: table => new
                 {
                     PhotoId = table.Column<int>(type: "int", nullable: false)
@@ -257,9 +257,9 @@ namespace CarDealership.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Photo", x => x.PhotoId);
+                    table.PrimaryKey("PK_Photos", x => x.PhotoId);
                     table.ForeignKey(
-                        name: "FK_Photo_Cars_CarId",
+                        name: "FK_Photos_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "CarId",
@@ -326,8 +326,8 @@ namespace CarDealership.Migrations
                 column: "BrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Photo_CarId",
-                table: "Photo",
+                name: "IX_Photos_CarId",
+                table: "Photos",
                 column: "CarId");
         }
 
@@ -350,7 +350,7 @@ namespace CarDealership.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Photo");
+                name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -35,21 +35,35 @@ namespace CarDealership.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Car car)
+        public IActionResult Create(Car car, string photoUrl)
         {
             if (ModelState.IsValid)
             {
+                // Save the car to the database
                 _context.Cars.Add(car);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            // If the model state is not valid, re-populate necessary data for the view
+                // Check if a photo URL is provided
+                if (!string.IsNullOrEmpty(photoUrl))
+                {
+                    var photoModel = new Photo
+                    {
+                        CarId = car.CarId,
+                        Url = photoUrl
+                    };
+
+                    // Save the photo to the database
+                    _context.Photos.Add(photoModel);
+                    _context.SaveChanges();
+                }
+
+                return View("Index", car); 
+            }
+           
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
 
-            // Return to the Create view with validation errors
-            return View(car);
+            return View("Create", car);
         }
 
 
