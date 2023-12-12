@@ -33,9 +33,8 @@ namespace CarDealership.Controllers
 
             return View();
         }
-
         [HttpPost]
-        public IActionResult Create(Car car, string photoUrl)
+        public IActionResult Create(Car car, List<string> photos)
         {
             if (ModelState.IsValid)
             {
@@ -43,28 +42,37 @@ namespace CarDealership.Controllers
                 _context.Cars.Add(car);
                 _context.SaveChanges();
 
-                // Check if a photo URL is provided
-                if (!string.IsNullOrEmpty(photoUrl))
+                // Check if photos are provided
+                if (photos != null && photos.Any())
                 {
-                    var photoModel = new Photo
+                    foreach (var photoUrl in photos)
                     {
-                        CarId = car.CarId,
-                        Url = photoUrl
-                    };
+                        var photoModel = new Photo
+                        {
+                            CarId = car.CarId,
+                            Url = photoUrl
+                        };
 
-                    // Save the photo to the database
-                    _context.Photos.Add(photoModel);
+                        // Save each photo to the database
+                        _context.Photos.Add(photoModel);
+                    }
+
                     _context.SaveChanges();
                 }
 
-                return View(car); 
+                // Return a JSON result with success status and redirection URL
+                return Json(new { success = true, redirectUrl = Url.Action("Index", "Car") });
             }
-           
+
+            // Repopulate dropdowns or other data as needed
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
 
-            return View("Create", car);
+            // Return a JSON result with success status (false in this case)
+            return Json(new { success = false });
         }
+
+
 
 
         [HttpGet]

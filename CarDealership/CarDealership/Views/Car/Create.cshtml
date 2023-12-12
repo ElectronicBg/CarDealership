@@ -7,10 +7,10 @@
 <h2>Create Car</h2>
 <form method="post" asp-action="Create" asp-controller="Car" id="carForm">
     <div>
-    <label asp-for="Brand"></label>
-    <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
-        <option value="">Select a brand</option>
-    </select>
+        <label asp-for="Brand"></label>
+        <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
+            <option value="">Select a brand</option>
+        </select>
     </div>
 
     <div class="form-group">
@@ -75,11 +75,13 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Photos">Photo URL</label>
+        <label asp-for="Photos">Photo URLs</label>
         <input asp-for="Photos" id="photoUrl" name="photoUrl" class="form-control" />
         <span asp-validation-for="Photos" class="text-danger"></span>
-        <small class="form-text text-muted">Enter a single photo URL.</small>
+        <small class="form-text text-muted">Enter one or more photo URLs (separated by commas).</small>
     </div>
+
+    <button type="button" id="addPhotoBtn" class="btn btn-secondary">Add Photo</button>
 
     <button type="submit" class="btn btn-primary">Create</button>
 
@@ -110,6 +112,23 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function () {
+            var photoUrls = []; // Array to store photo URLs
+
+            // Event handler for the "Add Photo" button
+            $("#addPhotoBtn").on('click', function () {
+                var photoUrlInput = $("#photoUrl");
+                var newUrl = photoUrlInput.val();
+
+                // Add the new URL to the array if not empty
+                if (newUrl.trim() !== "") {
+                    photoUrls.push(newUrl);
+                    console.log("Added photo URL:", newUrl);
+
+                    // Clear the input field
+                    photoUrlInput.val('');
+                }
+            });
+
             $("#carForm").submit(function (event) {
                 // Prevent the default form submission
                 event.preventDefault();
@@ -127,27 +146,36 @@
                     CarType: $("#CarType").val(),
                     Condition: $("#Condition").val(),
                     Price: $("#Price").val(),
-                    Photos: $("#photoUrl").val()
+                    Photos: photoUrls 
                 };
 
-                // Perform the AJAX request
+                // Perform the AJAX request without success and error callbacks
                 $.ajax({
                     type: "POST",
                     url: "/Car/Create",
-                    data: { car: carData, photoUrl: carData.Photos },
+                    data: { car: carData, photos: photoUrls },
                     success: function (data) {
                         if (data.success) {
-                            console.log("Car and photo added successfully");
+                            console.log("Car and photos added successfully");
+
+                            // Check if there's a redirect URL
+                            if (data.redirectUrl) {
+                                // Redirect to the specified URL
+                                window.location.href = data.redirectUrl;
+                            } else {
+                                console.warn("No redirection URL provided.");
+                            }
                         } else {
-                            console.error("Error adding car and photo:", data.message);
+                            console.warn("Error adding car and photos:", data.message || "Unknown error");
                         }
                     },
                     error: function () {
-                        console.error("Error adding car and photo");
+                        console.warn("AJAX request failed");
                     }
                 });
             });
         });
+
     </script>
 }
 
