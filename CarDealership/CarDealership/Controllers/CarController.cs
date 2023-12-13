@@ -1,5 +1,6 @@
 ﻿using CarDealership.Data;
 using CarDealership.Models;
+using CarDealership.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -73,8 +74,6 @@ namespace CarDealership.Controllers
         }
 
 
-
-
         [HttpGet]
         public IActionResult GetModels(int brandId)
         {
@@ -84,6 +83,108 @@ namespace CarDealership.Controllers
                 .ToList();
 
             return Json(models);
+        }
+
+        //Search Cars
+        [HttpGet]
+        [Route("Car/Search")]
+        public IActionResult Search()
+        {
+            var model = new SearchViewModel();
+            ViewBag.Brands = _context.Brands.ToList();
+            ViewBag.CarColors = _context.CarColors.ToList();
+            return View(model);
+        }
+
+        //Search Cars
+        [HttpPost]
+        [Route("Car/Search")]
+        public IActionResult Search(SearchViewModel search)
+        {
+            // Query to get cars based on selected filters
+            var query = _context.Cars.AsQueryable();
+
+            // Filter by brand
+            if (search.BrandId.HasValue)
+            {
+                query = query.Where(c => c.BrandId == search.BrandId);
+            }
+
+            // Filter by model
+            if (search.ModelId.HasValue)
+            {
+                query = query.Where(c => c.ModelId == search.ModelId);
+            }
+
+            // Filter by engine type
+            if (search.EngineType.HasValue)
+            {
+                query = query.Where(c => c.EngineType == search.EngineType);
+            }
+
+            // Filter by transmission type
+            if (search.TransmissionType.HasValue)
+            {
+                query = query.Where(c => c.TransmissionType == search.TransmissionType);
+            }
+
+            // Filter by color
+            if (search.CarColorId.HasValue)
+            {
+                query = query.Where(c => c.CarColorId == search.CarColorId);
+            }
+
+            // Filter by region
+            if (search.Region.HasValue)
+            {
+                query = query.Where(c => c.Region == search.Region);
+            }
+
+            // Filter by year range
+            if (search.MinYear.HasValue)
+            {
+                query = query.Where(c => c.Year >= search.MinYear);
+            }
+
+            if (search.MaxYear.HasValue)
+            {
+                query = query.Where(c => c.Year <= search.MaxYear);
+            }
+
+            // Filter by car type
+            if (search.CarType.HasValue)
+            {
+                query = query.Where(c => c.CarType == search.CarType);
+            }
+
+            // Filter by condition
+            if (search.Condition.HasValue)
+            {
+                query = query.Where(c => c.Condition == search.Condition);
+            }
+
+            // Filter by price range
+            if (search.MinPrice.HasValue)
+            {
+                query = query.Where(c => c.Price >= search.MinPrice);
+            }
+
+            if (search.MaxPrice.HasValue)
+            {
+                query = query.Where(c => c.Price <= search.MaxPrice);
+            }
+
+            // Execute the query and retrieve the results
+            var results = query.ToList();
+
+            if (results.Any())
+            {
+                return View("Results", results);
+            }
+            else
+            {
+                return View("Index");
+            }
         }
 
         // Update Car

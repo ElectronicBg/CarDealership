@@ -13,7 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 /*builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();*/
 
-builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI().AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
@@ -47,8 +47,14 @@ app.UseEndpoints(endpoints =>
         defaults: new { controller = "Car", action = "GetModels" });
 
     endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+      name: "Search",
+      pattern: "Car/Search",
+      defaults: new { controller = "Car", action = "Search" }
+  );
+
+    endpoints.MapControllerRoute(
+     name: "default",
+     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 

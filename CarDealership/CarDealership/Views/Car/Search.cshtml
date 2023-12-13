@@ -1,0 +1,115 @@
+﻿@using CarDealership.Models.Enums
+@model CarDealership.ViewModel.SearchViewModel
+@{
+    ViewData["Title"] = "Search";
+}
+<h2>Search Cars</h2>
+<form method="post" asp-action="Search" asp-controller="Car" id="searchForm">
+    <div>
+        <label asp-for="BrandId"></label>
+        <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
+            <option value="">Select a brand</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ModelId"></label>
+        <select asp-for="ModelId" class="form-control" id="modelDropdown">
+            <option value="">Select a model</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EngineType"></label>
+        <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
+            <option value="">Select an engine type</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TransmissionType"></label>
+        <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
+            <option value="">Select a transmission type</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CarColorId"></label>
+        <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
+            <option value="">Select a car color</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Region"></label>
+        <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
+            <option value="">Select a region</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MinYear"></label>
+        <input asp-for="MinYear" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaxYear"></label>
+        <input asp-for="MaxYear" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Mileage"></label>
+        <input asp-for="Mileage" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CarType"></label>
+        <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
+            <option value="">Select a car type</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Condition"></label>
+        <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
+            <option value="">Select a condition</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MinPrice"></label>
+        <input asp-for="MinPrice" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaxPrice"></label>
+        <input asp-for="MaxPrice" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).on('change', '#brandDropdown', function () {
+            var brandId = $(this).val();
+
+            // Clear existing options in the model dropdown
+            $('#modelDropdown').html('<option value="">Select a model</option>');
+
+            if (brandId) {
+                // Use Url.Action to generate the correct URL
+                var url = '@Url.Action("GetModels", "Car")/' + brandId;
+
+                // Fetch models based on the selected brand
+                $.getJSON(url, function (models) {
+                    // Populate the model dropdown with fetched models
+                    $.each(models, function (index, model) {
+                        $('#modelDropdown').append('<option value="' + model.modelId + '">' + model.name + '</option>');
+                    });
+                });
+            }
+        });
+    </script>
+}
