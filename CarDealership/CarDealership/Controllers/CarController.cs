@@ -101,8 +101,16 @@ namespace CarDealership.Controllers
         [Route("Car/Search")]
         public IActionResult Search(SearchViewModel search)
         {
+            ViewBag.Brands = _context.Brands.ToList();
+            ViewBag.CarColors = _context.CarColors.ToList();
+
             // Query to get cars based on selected filters
-            var query = _context.Cars.AsQueryable();
+            var query = _context.Cars
+                        .Include(c => c.Brand)
+                        .Include(c => c.CarColor)
+                        .Include(c => c.Model)
+                        .Include(c => c.Photos).ToList()
+                        .AsQueryable();
 
             // Filter by brand
             if (search.BrandId.HasValue)
@@ -177,14 +185,9 @@ namespace CarDealership.Controllers
             // Execute the query and retrieve the results
             var results = query.ToList();
 
-            if (results.Any())
-            {
-                return View("Results", results);
-            }
-            else
-            {
-                return View("Index");
-            }
+            ViewBag.SearchResults = results;
+
+            return View("Search");
         }
 
         // Update Car
