@@ -15,16 +15,30 @@ namespace CarDealership.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? pageSize, int? pageNumber)
         {
             var cars = _context.Cars
                 .Include(c => c.Brand)
                 .Include(c => c.CarColor)
                 .Include(c => c.Photos)
+                .AsQueryable(); // Convert to IQueryable for dynamic query composition
+
+            // Pagination
+            pageSize = pageSize ?? 6; // Default page size is 6
+            pageNumber = pageNumber ?? 1; // Default page number is 1
+            ViewBag.PageSize = pageSize.Value;
+            ViewBag.CurrentPage = pageNumber.Value;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)cars.Count() / pageSize.Value);
+
+            var paginatedCars = cars
+                .Skip((pageNumber.Value - 1) * pageSize.Value)
+                .Take(pageSize.Value)
                 .ToList();
 
-            return View(cars);
+            // Pass the paginated cars to the view
+            return View(paginatedCars);
         }
+
 
         // Add Car
         public IActionResult Create()
@@ -99,7 +113,7 @@ namespace CarDealership.Controllers
         //Search Cars
         [HttpPost]
         [Route("Car/Search")]
-        public IActionResult Search(SearchViewModel search, string orderBy)
+        public IActionResult Search(SearchViewModel search, string orderBy, int? pageSize, int? pageNumber)
         {
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
@@ -207,16 +221,29 @@ namespace CarDealership.Controllers
                     break;
             }
 
-            // Execute the query and retrieve the results
+            // Materialize the query into a list before pagination
             var results = query.ToList();
 
-            ViewBag.SearchResults = results;
+            // Pagination
+            pageSize = pageSize ?? 5; // Default page size is 3
+            pageNumber = pageNumber ?? 1;
+
+            var paginatedResults = results
+                .Skip((pageNumber.Value - 1) * pageSize.Value)
+                .Take(pageSize.Value)
+                .ToList();
+
+            // Set pagination-related ViewBag values
+            ViewBag.SearchResults = paginatedResults;
+            ViewBag.PageSize = pageSize.Value;
+            ViewBag.CurrentPage = pageNumber.Value;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)results.Count() / pageSize.Value);
 
             return View("Search");
         }
 
-        // Update Car
-        public IActionResult Edit(int id)
+            // Update Car
+            public IActionResult Edit(int id)
         {
             var car = _context.Cars
                 .Include(c => c.Brand)
