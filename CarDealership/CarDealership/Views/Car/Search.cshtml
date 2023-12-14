@@ -93,12 +93,14 @@
     <div class="form-group">
         <label for="orderBy">Order By</label>
         <select id="orderBy" name="orderBy" class="form-control">
+            <option value="">Default</option>
             <option value="PriceAsc">Price Ascending</option>
             <option value="PriceDesc">Price Descending</option>
             <option value="MileageAsc">Mileage Ascending</option>
             <option value="MileageDesc">Mileage Descending</option>
         </select>
     </div>
+
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 @if (ViewBag.SearchResults != null)

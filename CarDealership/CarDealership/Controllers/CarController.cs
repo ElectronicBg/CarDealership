@@ -201,8 +201,6 @@ namespace CarDealership.Controllers
                     query = query.OrderByDescending(c => c.Mileage);
                     break;
 
-                // Add more cases for other sorting options if needed
-
                 default:
                     // Default sorting (you can choose a default based on your requirements)
                     query = query.OrderBy(c => c.Price);
@@ -222,6 +220,7 @@ namespace CarDealership.Controllers
         {
             var car = _context.Cars
                 .Include(c => c.Brand)
+                .Include(c => c.Model)
                 .Include(c => c.CarColor)
                 .Include(c => c.Photos)
                 .FirstOrDefault(c => c.CarId == id);
@@ -234,23 +233,58 @@ namespace CarDealership.Controllers
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
 
+            // Populate the Model dropdown based on the selected BrandId
+            ViewBag.Models = _context.Models
+                .Where(m => m.BrandId == car.BrandId)
+                .ToList();
+
             return View(car);
         }
 
         [HttpPost]
-        public IActionResult Edit(Car car)
+        public IActionResult Edit(int id, Car editedCar)
         {
+            if (id != editedCar.CarId)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
-                _context.Cars.Update(car);
+                // Retrieve the existing car from the database
+                var existingCar = _context.Cars
+                    .Include(c => c.Brand)
+                    .Include(c => c.Model)
+                    .Include(c => c.CarColor)
+                    .Include(c => c.Photos)
+                    .FirstOrDefault(c => c.CarId == id);
+
+                if (existingCar == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the properties of the existing car with the values from the editedCar
+                _context.Entry(existingCar).CurrentValues.SetValues(editedCar);
+
+                // Update any relationships if needed
+                // For example, you may need to update the Brand, Model, CarColor, etc.
+
                 _context.SaveChanges();
+
+                // Redirect to the Index action of the Car controller
                 return RedirectToAction("Index");
             }
 
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
 
-            return View(car);
+            // Repopulate the Model dropdown based on the selected BrandId
+            ViewBag.Models = _context.Models
+                .Where(m => m.BrandId == editedCar.BrandId)
+                .ToList();
+
+            return View("Index");
         }
 
         [HttpPost]

@@ -8,10 +8,18 @@
 <form method="post" asp-controller="Car" asp-action="Edit">
     <div class="form-group">
         <label asp-for="BrandId" class="form-label"></label>
-        <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control">
+        <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
             <option value="">Select a brand</option>
         </select>
     </div>
+
+    <div class="form-group">
+        <label asp-for="ModelId" class="form-label"></label>
+        <select asp-for="ModelId" asp-items="@(new SelectList(ViewBag.Models, "ModelId", "Name"))" class="form-control" id="modelDropdown">
+            <option value="">Select a model</option>
+        </select>
+    </div>
+
     <div class="form-group">
         <label asp-for="EngineType" class="form-label"></label>
         <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
@@ -64,5 +72,32 @@
         <label asp-for="Price" class="form-label"></label>
         <input asp-for="Price" class="form-control" />
     </div>
-    <input type="submit" value="Update" class="btn btn-primary" />
+    <input asp-for="@Model.CarId" class="d-none" value="@Model.CarId" />
+    <input asp-controller="Car" asp-action="Edit" type="submit" value="Update" class="btn btn-primary" />
 </form>
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(document).on('change', '#brandDropdown', function () {
+                var brandId = $(this).val();
+
+                // Clear existing options in the model dropdown
+                $('#modelDropdown').html('<option value="">Select a model</option>');
+
+                if (brandId) {
+                    // Use Url.Action to generate the correct URL
+                    var url = '@Url.Action("GetModels", "Car")/' + brandId;
+
+                    // Fetch models based on the selected brand
+                    $.getJSON(url, function (models) {
+                        // Populate the model dropdown with fetched models
+                        $.each(models, function (index, model) {
+                            $('#modelDropdown').append('<option value="' + model.modelId + '">' + model.name + '</option>');
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+}
