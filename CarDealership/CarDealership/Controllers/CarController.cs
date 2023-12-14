@@ -99,7 +99,7 @@ namespace CarDealership.Controllers
         //Search Cars
         [HttpPost]
         [Route("Car/Search")]
-        public IActionResult Search(SearchViewModel search)
+        public IActionResult Search(SearchViewModel search, string orderBy)
         {
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
@@ -180,6 +180,33 @@ namespace CarDealership.Controllers
             if (search.MaxPrice.HasValue)
             {
                 query = query.Where(c => c.Price <= search.MaxPrice);
+            }
+
+            // Apply sorting based on the orderBy parameter
+            switch (orderBy)
+            {
+                case "PriceAsc":
+                    query = query.OrderBy(c => c.Price);
+                    break;
+
+                case "PriceDesc":
+                    query = query.OrderByDescending(c => c.Price);
+                    break;
+
+                case "MileageAsc":
+                    query = query.OrderBy(c => c.Mileage);
+                    break;
+
+                case "MileageDesc":
+                    query = query.OrderByDescending(c => c.Mileage);
+                    break;
+
+                // Add more cases for other sorting options if needed
+
+                default:
+                    // Default sorting (you can choose a default based on your requirements)
+                    query = query.OrderBy(c => c.Price);
+                    break;
             }
 
             // Execute the query and retrieve the results
