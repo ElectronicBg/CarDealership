@@ -101,7 +101,7 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
 </form>
 @if (ViewBag.SearchResults != null && ViewBag.SearchResults.Count > 0)
 {
@@ -200,7 +200,10 @@
                     var selectedModelName = '@ViewBag.SelectedModelName';
                     console.log(selectedModelName);
                     if (selectedModelName) {
-                        $('#modelDropdown option:first').text(selectedModelName);
+                        // Find the option with the matching text and select it
+                        $('#modelDropdown option').filter(function () {
+                            return $(this).text() === selectedModelName;
+                        }).prop('selected', true);
                     }
                 });
             }
@@ -226,5 +229,4 @@
             document.getElementById("paginationForm").submit();
         }
     </script>
-
 }
