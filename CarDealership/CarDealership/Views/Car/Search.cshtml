@@ -180,9 +180,8 @@
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        $(document).on('change', '#brandDropdown', function () {
-            var brandId = $(this).val();
-
+        // Function to fetch and populate models based on the selected brand
+        function fetchAndPopulateModels(brandId) {
             // Clear existing options in the model dropdown
             $('#modelDropdown').html('<option value="">Select a model</option>');
 
@@ -196,8 +195,29 @@
                     $.each(models, function (index, model) {
                         $('#modelDropdown').append('<option value="' + model.modelId + '">' + model.name + '</option>');
                     });
+
+                    // Set the selected value based on ViewBag.SelectedModelName if not empty
+                    var selectedModelName = '@ViewBag.SelectedModelName';
+                    console.log(selectedModelName);
+                    if (selectedModelName) {
+                        $('#modelDropdown option:first').text(selectedModelName);
+                    }
                 });
             }
+        }
+
+        // Execute the script on page load
+        $(document).ready(function () {
+            var initialBrandId = $('#brandDropdown').val();
+            fetchAndPopulateModels(initialBrandId);
+        });
+
+        // Handle change event on the brand dropdown
+        $(document).on('change', '#brandDropdown', function () {
+            var brandId = $(this).val();
+
+            // Call the function to fetch and populate models
+            fetchAndPopulateModels(brandId);
         });
     </script>
     <script>

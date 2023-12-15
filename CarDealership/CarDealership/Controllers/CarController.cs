@@ -132,10 +132,21 @@ namespace CarDealership.Controllers
                 query = query.Where(c => c.BrandId == search.BrandId);
             }
 
+            int? selectedModelId = null;  // Variable to store the selected model ID
+            string selectedModelName = null;  // Variable to store the selected model name
+
             // Filter by model
             if (search.ModelId.HasValue)
             {
                 query = query.Where(c => c.ModelId == search.ModelId);
+                selectedModelId = search.ModelId;  // Capture the selected model ID
+
+                // Query the database to get the model name based on the selected model ID
+                var selectedModel = _context.Models.FirstOrDefault(m => m.ModelId == search.ModelId);
+                if (selectedModel != null)
+                {
+                    selectedModelName = selectedModel.Name;
+                }
             }
 
             // Filter by engine type
@@ -238,6 +249,8 @@ namespace CarDealership.Controllers
             ViewBag.PageSize = pageSize.Value;
             ViewBag.CurrentPage = pageNumber.Value;
             ViewBag.TotalPages = (int)Math.Ceiling((double)results.Count() / pageSize.Value);
+
+            ViewBag.SelectedModelName = selectedModelName;
 
             return View("Search");
         }
