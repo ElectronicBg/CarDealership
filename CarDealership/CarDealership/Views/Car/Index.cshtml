@@ -4,19 +4,33 @@
 }
 
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <h2>Cars List</h2>
-
+<a asp-action="Create" asp-controller="Car" class="btn btn-success">
+    Add New Car
+</a>
+<div class="row">
+    <form asp-action="Index" asp-controller="Car" method="post" id="paginationForm">
+        <input type="hidden" name="pageNumber" id="pageNumberInput" value="@(ViewBag.CurrentPage)" />
+        <input type="hidden" name="pageSize" value="@(ViewBag.PageSize)" />
+        <ul class="pagination">
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(1)">First</a></li>
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage - 1))">Previous</a></li>
+            <li class="page-item"><span class="page-link">Page @(ViewBag.CurrentPage) of @(ViewBag.TotalPages)</span></li>
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage + 1))">Next</a></li>
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.TotalPages))">Last</a></li>
+        </ul>
+    </form>
+</div>
 <div class="row">
     @foreach (var car in Model)
     {
         <div class="col-md-4 mb-4">
             <div class="card">
-                <img src="@car.Photos.FirstOrDefault()?.Url" class="card-img-top" alt="Car Photo">
+                <img src="@car.Photos.FirstOrDefault()?.Url" class="card-img-top img-fluid" alt="Car Photo">
                 <div class="card-body">
                     <h5 class="card-title">@car.Brand.Name</h5>
                     <p class="card-text">
@@ -66,7 +80,13 @@
             </div>
         </div>
     }
-    <a asp-action="Create" asp-controller="Car" class="btn btn-success">
-        Add New Car
-    </a>
 </div>
+@section scripts
+{
+    <script>
+        function changePage(pageNumber) {
+            document.getElementById("pageNumberInput").value = pageNumber;
+            document.getElementById("paginationForm").submit();
+        }
+    </script>
+}

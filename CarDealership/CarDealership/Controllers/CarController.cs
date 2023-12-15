@@ -242,8 +242,8 @@ namespace CarDealership.Controllers
             return View("Search");
         }
 
-            // Update Car
-            public IActionResult Edit(int id)
+        // Update Car
+        public IActionResult Edit(int id)
         {
             var car = _context.Cars
                 .Include(c => c.Brand)
