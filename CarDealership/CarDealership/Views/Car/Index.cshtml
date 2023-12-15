@@ -2,84 +2,71 @@
 @{
     ViewData["Title"] = "Cars List";
 }
+
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<h2>Cars List</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Brand</th>
-            <th>Engine Type</th>
-            <th>Transmission Type</th>
-            <th>Car Color</th>
-            <th>Region</th>
-            <th>Year</th>
-            <th>Mileage</th>
-            <th>Power</th>
-            <th>Car Type</th>
-            <th>Condition</th>
-            <th>Price</th>
-            <th>Photos</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var car in Model)
-        {
-            <tr>
-                <td>@car.Brand.Name</td>
-                <td>@car.EngineType</td>
-                <td>@car.TransmissionType</td>
-                <td>@car.CarColor.Name</td>
-                <td>@car.Region</td>
-                <td>@car.Year</td>
-                <td>@car.Mileage</td>
-                <td>@car.Power</td>
-                <td>@car.CarType</td>
-                <td>@car.Condition</td>
-                <td>@car.Price</td>
-                 <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#carGalleryModal-@car.CarId">
-                    View Photos
-                </button>
 
-                <!-- Modal for Car Gallery -->
-                <div class="modal fade" id="carGalleryModal-@car.CarId" tabindex="-1" role="dialog" aria-labelledby="carGalleryModalLabel-@car.CarId" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="carGalleryModalLabel-@car.CarId">Car Photos</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Display photos in the modal -->
-                                @foreach (var photo in car.Photos)
-                                {
-                                    <img src="@photo.Url" alt="Car Photo" class="img-fluid" />
-                                }
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@car.CarId" class="btn btn-primary">Edit</a>
+<h2>Cars List</h2>
+
+<div class="row">
+    @foreach (var car in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="@car.Photos.FirstOrDefault()?.Url" class="card-img-top" alt="Car Photo">
+                <div class="card-body">
+                    <h5 class="card-title">@car.Brand.Name</h5>
+                    <p class="card-text">
+                        <strong>Engine Type:</strong> @car.EngineType<br>
+                        <strong>Transmission Type:</strong> @car.TransmissionType<br>
+                        <strong>Car Color:</strong> @car.CarColor.Name<br>
+                        <strong>Region:</strong> @car.Region<br>
+                        <strong>Year:</strong> @car.Year<br>
+                        <strong>Mileage:</strong> @car.Mileage<br>
+                        <strong>Power:</strong> @car.Power<br>
+                        <strong>Car Type:</strong> @car.CarType<br>
+                        <strong>Condition:</strong> @car.Condition<br>
+                        <strong>Price:</strong> @car.Price
+                    </p>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#carGalleryModal-@car.CarId">
+                        View Photos
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@car.CarId" class="btn btn-secondary">Edit</a>
                     <form asp-action="Delete" asp-route-id="@car.CarId" method="post" onsubmit="return confirm('Are you sure you want to delete this car?');">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<a asp-action="Create" asp-controller="Car" class="btn btn-success">
-    Add New Car
-</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Car Gallery -->
+        <div class="modal fade" id="carGalleryModal-@car.CarId" tabindex="-1" role="dialog" aria-labelledby="carGalleryModalLabel-@car.CarId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="carGalleryModalLabel-@car.CarId">Car Photos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Display photos in the modal -->
+                        @foreach (var photo in car.Photos)
+                        {
+                            <img src="@photo.Url" alt="Car Photo" class="img-fluid" />
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <a asp-action="Create" asp-controller="Car" class="btn btn-success">
+        Add New Car
+    </a>
+</div>

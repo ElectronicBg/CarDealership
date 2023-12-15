@@ -163,23 +163,15 @@
     <form asp-action="Search" asp-controller="Car" method="post" id="paginationForm">
         <input type="hidden" name="pageNumber" id="pageNumberInput" value="@(ViewBag.CurrentPage)" />
         <input type="hidden" name="pageSize" value="@(ViewBag.PageSize)" />
-
-        <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
-            <a class="page-link" href="javascript:void(0);" onclick="changePage(1)">First</a>
-        </li>
-        <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
-            <a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage - 1))">Previous</a>
-        </li>
-        <li class="page-item">
-            <span class="page-link">Page @(ViewBag.CurrentPage) of @(ViewBag.TotalPages)</span>
-        </li>
-        <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
-            <a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage + 1))">Next</a>
-        </li>
-        <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
-            <a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.TotalPages))">Last</a>
-        </li>
+        <ul class="pagination">
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(1)">First</a></li>
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage - 1))">Previous</a></li>
+            <li class="page-item"><span class="page-link">Page @(ViewBag.CurrentPage) of @(ViewBag.TotalPages)</span></li>
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage + 1))">Next</a></li>
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.TotalPages))">Last</a></li>
+        </ul>
     </form>
+
 } else
 {
     <p>No results found.</p>
