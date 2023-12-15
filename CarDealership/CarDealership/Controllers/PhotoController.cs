@@ -42,6 +42,24 @@ public class PhotoController : Controller
         return View(photo);
     }
 
+    [HttpPost]
+    public IActionResult AddToCar(int carId, List<string> photoUrls)
+    {
+        if (photoUrls != null && photoUrls.Any())
+        {
+            foreach (var url in photoUrls)
+            {
+                var photo = new Photo { CarId = carId, Url = url };
+                _context.Photos.Add(photo);
+            }
+
+            _context.SaveChanges();
+            return Ok(); 
+        }
+
+        return BadRequest("No photo URLs provided");
+    }
+
     // GET: Photo/Edit/5
     public IActionResult Edit(int? id)
     {

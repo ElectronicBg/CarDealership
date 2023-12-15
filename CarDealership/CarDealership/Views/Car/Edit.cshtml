@@ -2,6 +2,7 @@
 @model CarDealership.Models.Car
 @{
     ViewData["Title"] = "Edit Car";
+    var photo = string.Empty;
 }
 
 <h2>Edit Car</h2>
@@ -72,8 +73,18 @@
         <label asp-for="Price" class="form-label"></label>
         <input asp-for="Price" class="form-control" />
     </div>
-    <input asp-for="@Model.CarId" class="d-none" value="@Model.CarId" />
+    <input asp-for="@Model.CarId" class="d-none" id="currentCarId" value="@Model.CarId" />
     <input asp-controller="Car" asp-action="Edit" type="submit" value="Update" class="btn btn-primary" />
+
+    <div class="form-group">
+        <label asp-for="@photo">Photo URLs</label>
+        <input asp-for="@photo" id="photoUrl" name="photoUrl" class="form-control" />
+        <span asp-validation-for="@photo" class="text-danger"></span>
+        <small class="form-text text-muted">Enter one or more photo URLs (separated by commas).</small>
+    </div>
+
+    <button type="button" id="addPhotoBtn" class="btn btn-secondary">Add Photo</button>
+    <button type="button" id="savePhotosBtn" class="btn btn-secondary">Save Photo</button>
 </form>
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -97,6 +108,45 @@
                         });
                     });
                 }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var photo = []; 
+
+            // Event handler for the "Add Photo" button
+            $("#addPhotoBtn").on('click', function () {
+                var photoUrlInput = $("#photoUrl");
+                var newUrl = photoUrlInput.val();
+             
+                // Add the new URL to the array if not empty
+                if (newUrl.trim() !== "") {
+                    photo.push(newUrl); // Ensure consistency with your model
+
+                    // Clear the input field
+                    photoUrlInput.val('');
+                }
+            });
+
+            // Event handler for the "Save Photos" button
+            $("#savePhotosBtn").on('click', function () {
+
+                var currentCarId = $("#currentCarId").val();
+
+                // Send an AJAX request to add the photos to the current car
+                $.ajax({
+                    type: 'POST',
+                    url: '/Photo/AddToCar', 
+                    data: { carId: currentCarId, photoUrls: photo }, 
+                    traditional: true, 
+                    success: function () {
+                        console.log("Photos added successfully");
+                    },
+                    error: function (error) {
+                        console.error("Error adding photos:", error);
+                    }
+                });
             });
         });
     </script>
