@@ -23,6 +23,8 @@ namespace CarDealership.Controllers
         public IActionResult Index()
         {
             var model = new SearchViewModel();
+            
+            ViewBag.TopCars = _context.Cars.Take(6).ToList();
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
             return View(model);

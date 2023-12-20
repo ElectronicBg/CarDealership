@@ -110,54 +110,74 @@
     <div class="row">
         @foreach (var car in ViewBag.SearchResults)
         {
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top" alt="Car Photo">
-                    <div class="card-body">
-                        <h5 class="card-title">@car.Model.Name</h5>
-                        <p class="card-text">
-                            <strong>Brand:</strong> @car.Brand.Name<br>
-                            <strong>Engine Type:</strong> @car.EngineType<br>
-                            <strong>Transmission Type:</strong> @car.TransmissionType<br>
-                            <strong>Car Color:</strong> @car.CarColor.Name<br>
-                            <strong>Region:</strong> @car.Region<br>
-                            <strong>Year:</strong> @car.Year<br>
-                            <strong>Mileage:</strong> @car.Mileage<br>
-                            <strong>Power:</strong> @car.Power<br>
-                            <strong>Car Type:</strong> @car.CarType<br>
-                            <strong>Condition:</strong> @car.Condition<br>
-                            <strong>Price:</strong> @car.Price
-                        </p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#carGalleryModal-@car.CarId">
-                            View Photos
-                        </button>
-                    </div>
-                </div>
+            <div class="col-md-4 mb-4 p-2">
+                <div class="card d-flex flex-column">
+                    <!-- Car Image -->
+                    <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top img-fluid" alt="Car Photo" style="height: 250px; object-fit: cover; transition: filter 0.3s;">
 
-                <!-- Modal for Car Gallery -->
-                <div class="modal fade" id="carGalleryModal-@car.CarId" tabindex="-1" role="dialog" aria-labelledby="carGalleryModalLabel-@car.CarId" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="carGalleryModalLabel-@car.CarId">Car Photos</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Display photos in the modal -->
-                                @foreach (var photo in car.Photos)
-                                {
-                                    <img src="@photo.Url" alt="Car Photo" class="img-fluid" />
-                                }
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div class="card-body">
+                        <!-- Car Name -->
+                        <h3 class="card-title">@car.Model.Name</h3>
+
+                        <!-- Car Details with Icons -->
+                        <div class="card-text d-flex justify-content-between">
+                            <h5>@car.Price лв.</h5>
+                            <div class="d-flex">
+                                <p class="pe-2">@car.Mileage</p>
+                                <p class="pe-2">@car.EngineType</p>
+                                <p class="pe-2">@car.TransmissionType</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            @* <div class="card">
+    <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top" alt="Car Photo">
+    <div class="card-body">
+    <h5 class="card-title">@car.Model.Name</h5>
+    <p class="card-text">
+    <strong>Brand:</strong> @car.Brand.Name<br>
+    <strong>Engine Type:</strong> @car.EngineType<br>
+    <strong>Transmission Type:</strong> @car.TransmissionType<br>
+    <strong>Car Color:</strong> @car.CarColor.Name<br>
+    <strong>Region:</strong> @car.Region<br>
+    <strong>Year:</strong> @car.Year<br>
+    <strong>Mileage:</strong> @car.Mileage<br>
+    <strong>Power:</strong> @car.Power<br>
+    <strong>Car Type:</strong> @car.CarType<br>
+    <strong>Condition:</strong> @car.Condition<br>
+    <strong>Price:</strong> @car.Price
+    </p>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#carGalleryModal-@car.CarId">
+    View Photos
+    </button>
+    </div>
+    </div>
+
+    <!-- Modal for Car Gallery -->
+    <div class="modal fade" id="carGalleryModal-@car.CarId" tabindex="-1" role="dialog" aria-labelledby="carGalleryModalLabel-@car.CarId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" id="carGalleryModalLabel-@car.CarId">Car Photos</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <!-- Display photos in the modal -->
+    @foreach (var photo in car.Photos)
+    {
+    <img src="@photo.Url" alt="Car Photo" class="img-fluid" />
+    }
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+    </div>
+    </div> *@
         }
     </div>
     <form asp-action="Search" asp-controller="Car" method="post" id="paginationForm">
@@ -172,11 +192,16 @@
         </ul>
     </form>
 
-} else
+}
+else
 {
     <p>No results found.</p>
-} 
-
+}
+<style>
+    .card-img-top:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -228,5 +253,5 @@
             document.getElementById("pageNumberInput").value = pageNumber;
             document.getElementById("paginationForm").submit();
         }
-    </script>
+    </script>   
 }
