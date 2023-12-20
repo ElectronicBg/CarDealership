@@ -1,8 +1,160 @@
-﻿@{
+﻿@using CarDealership.Models.Enums
+@model CarDealership.ViewModel.SearchViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w==" crossorigin="anonymous" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</head>
+
+<div class="row">
+    <div class="d-flex flex-column align-items-center">
+        <h2>Search Less. Live More.</h2>
+        <h6>We make finding the right car simple </h6>
+    </div>
 </div>
+<div class="row">
+    <form method="post" asp-action="Search" asp-controller="Car" id="searchForm" class="form-inline">
+        <div class="form-group">
+            <label asp-for="Condition" class="mr-2"></label>
+            <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control mr-2">
+                <option value="">Select a condition</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BrandId" class="mr-2"></label>
+            <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands ?? new List<SelectListItem>(), "BrandId", "Name"))" class="form-control mr-2" id="brandDropdown">
+                <option value="">Select a brand</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ModelId" class="mr-2"></label>
+            <select asp-for="ModelId" class="form-control mr-2" id="modelDropdown">
+                <option value="">Select a model</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PriceRange" class="mr-2">Price Range:</label>
+            <input asp-for="PriceRange" id="priceRangeSlider" class="multi-range" type="text" data-slider-min="0" data-slider-max="50000" data-slider-step="50" data-slider-value="[0,50000]" />
+            <span id="priceRangeLabel" class="slider-label"></span>
+        </div>
+
+        <input asp-for="MinPrice" id="MinPrice" type="hidden" />
+        <input asp-for="MaxPrice" id="MaxPrice" type="hidden" />
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+        </div>
+    </form>
+</div>
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // Function to fetch and populate models based on the selected brand
+        function fetchAndPopulateModels(brandId) {
+            // Clear existing options in the model dropdown
+            $('#modelDropdown').html('<option value="">Select a model</option>');
+
+            if (brandId) {
+                // Use Url.Action to generate the correct URL
+                var url = '@Url.Action("GetModels", "Car")/' + brandId;
+
+                // Fetch models based on the selected brand
+                $.getJSON(url, function (models) {
+                    // Populate the model dropdown with fetched models
+                    $.each(models, function (index, model) {
+                        $('#modelDropdown').append('<option value="' + model.modelId + '">' + model.name + '</option>');
+                    });
+
+                    // Set the selected value based on ViewBag.SelectedModelName if not empty
+                    var selectedModelName = '@ViewBag.SelectedModelName';
+                    console.log(selectedModelName);
+                    if (selectedModelName) {
+                        // Find the option with the matching text and select it
+                        $('#modelDropdown option').filter(function () {
+                            return $(this).text() === selectedModelName;
+                        }).prop('selected', true);
+                    }
+                });
+            }
+        }
+
+        // Execute the script on page load
+        $(document).ready(function () {
+            var initialBrandId = $('#brandDropdown').val();
+            fetchAndPopulateModels(initialBrandId);
+        });
+
+        // Handle change event on the brand dropdown
+        $(document).on('change', '#brandDropdown', function () {
+            var brandId = $(this).val();
+
+            // Call the function to fetch and populate models
+            fetchAndPopulateModels(brandId);
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous"></script>
+
+    <script>
+        // Existing script content
+
+        // Initialize Bootstrap Slider for the price range
+        $('#priceRangeSlider').slider({
+            tooltip: 'hide'
+        }).on('slide', function (ev) {
+            var minPrice = ev.value[0];
+            var maxPrice = ev.value[1];
+
+            $('#priceRangeLabel').text(minPrice + ' - ' + maxPrice);
+
+            // Set the values to hidden fields or update your form elements
+            $('#MinPrice').val(minPrice);
+            $('#MaxPrice').val(maxPrice);
+        });
+
+        // Function to set initial label value
+        function setInitialLabel() {
+            var minPrice = $('#priceRangeSlider').data('slider-min');
+            var maxPrice = $('#priceRangeSlider').data('slider-max');
+
+            $('#priceRangeLabel').text(minPrice + ' - ' + maxPrice);
+
+            // Set the initial values to hidden fields or update your form elements
+            $('#MinPrice').val(minPrice);
+            $('#MaxPrice').val(maxPrice);
+        }
+
+        // Execute the script on page load
+        $(document).ready(function () {
+            setInitialLabel();
+        });
+
+        // Handle slide event on the priceRangeSlider
+        $('#priceRangeSlider').on('slide', function (ev) {
+            var minPrice = ev.value[0];
+            var maxPrice = ev.value[1];
+
+            $('#priceRangeLabel').text(minPrice + ' - ' + maxPrice);
+
+            // Set the values to hidden fields or update your form elements
+            $('#MinPrice').val(minPrice);
+            $('#MaxPrice').val(maxPrice);
+        });
+
+        // Handle form submission
+        $('#searchForm').submit(function () {
+            // You can include any additional form submission logic here
+            console.log('Submitting form with MinPrice:', $('#MinPrice').val(), 'and MaxPrice:', $('#MaxPrice').val());
+        });
+    </script>
+}
