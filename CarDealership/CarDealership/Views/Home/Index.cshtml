@@ -71,6 +71,63 @@
         </div>
     </form>
 </div>
+
+<!-- Add Bootstrap CSS and JS dependencies -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<div class="row">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @for (int i = 0; i < ViewBag.TopCars.Count; i++)
+            {
+                <div class="carousel-item @((i == 0) ? "active" : "")">
+                    <div class="row">
+                        @for (int j = i - 1; j <= i + 1; j++)
+                        {
+                            var carIndex = (j + ViewBag.TopCars.Count) % ViewBag.TopCars.Count;
+                            var car = ViewBag.TopCars[carIndex];
+                            <div class="col-md-4 mb-4 p-2 card">
+                                <div class="d-flex flex-column">
+                                    <!-- Car Image -->
+                                    <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top img-fluid" alt="Car Photo" style="height: 250px; object-fit: cover; transition: filter 0.3s;">
+
+                                    <div class="card-body">
+                                        <!-- Car Name -->
+                                        <h3 class="card-title">@car.Model.Name</h3>
+
+                                        <!-- Car Details with Icons -->
+                                        <div class="card-text d-flex justify-content-between">
+                                            <h5>@car.Price лв.</h5>
+                                            <div class="d-flex">
+                                                <p class="pe-2">@car.Mileage</p>
+                                                <p class="pe-2">@car.EngineType</p>
+                                                <p class="pe-2">@car.TransmissionType</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Carousel Controls -->
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+</div>
+
+
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -117,6 +174,7 @@
             fetchAndPopulateModels(brandId);
         });
     </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous"></script>
 
     <script>
@@ -172,7 +230,27 @@
     <script>
         function setCarType(carType) {
             $('#carTypeInput').val(carType);
-            $('#searchFormCarType').submit(); 
+            $('#searchFormCarType').submit();
         }
+    </script>
+    <script>
+        $('#carouselExampleIndicators').carousel({
+            interval: false // Disable automatic sliding
+        });
+
+        $('#carouselExampleIndicators').on('slide.bs.carousel', function (e) {
+            // Manually handle the slide transition
+            var currentIndex = e.from;
+            var nextIndex = e.to;
+
+            // Determine the indices of the cards to be displayed
+            var prevCardIndex = (nextIndex - 1 + ViewBag.TopCars.Count) % ViewBag.TopCars.Count;
+            var nextCardIndex = (nextIndex + 1) % ViewBag.TopCars.Count;
+
+            // Update the active class for the cards
+            $('.carousel-item').removeClass('active');
+            $('.carousel-item').eq(prevCardIndex).addClass('active');
+            $('.carousel-item').eq(nextCardIndex).addClass('active');
+        });
     </script>
 }
