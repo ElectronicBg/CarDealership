@@ -34,6 +34,8 @@ else
     app.UseHsts();
 }
 
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -61,5 +63,11 @@ app.UseEndpoints(endpoints =>
 
 
 app.MapRazorPages();
+
+//Seed Roles
+using (var scope = app.Services.CreateScope())
+{
+    await DbSeeder.SeedRolesAndAdminAsync(scope.ServiceProvider);
+}
 
 app.Run();

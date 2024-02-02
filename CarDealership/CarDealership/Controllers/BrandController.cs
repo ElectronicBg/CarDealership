@@ -1,8 +1,10 @@
 ﻿using CarDealership.Data;
 using CarDealership.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize(Roles = "Admin")]
 public class BrandController : Controller
 {
     private readonly ApplicationDbContext _context;

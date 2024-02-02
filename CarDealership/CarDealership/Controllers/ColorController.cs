@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using CarDealership.Data; 
 using CarDealership.Models;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize(Roles = "Admin")]
 public class ColorController : Controller
 {
     private readonly ApplicationDbContext _context;

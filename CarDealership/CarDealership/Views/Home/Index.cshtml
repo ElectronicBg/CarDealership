@@ -4,48 +4,45 @@
     ViewData["Title"] = "Home Page";
 }
 <head>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w==" crossorigin="anonymous" />
-
 </head>
 
-<div class="row">
-    <div class="d-flex flex-column align-items-center">
-        <h2>Search Less. Live More.</h2>
-        <h6>We make finding the right car simple </h6>
+<div class="row d-flex align-content-center justify-content-center vh-100 vw-100" style="background-image: url(https://cdn.motor1.com/images/mgl/krgqn/s1/2019-mercedes-amg-gle-53-4matic.jpg); background-size: cover; background-position: center;  border-radius: 0 0 20% 20%;">
+   
+    <div class="d-flex flex-column align-items-center mb-4">
+        <h2 class="fs-1 fw-bolder text-white">Search Less. Live More.</h2>
+        <h6 class="text-white">We make finding the right car simple </h6>
     </div>
-</div>
-<div class="row">
-    <form method="post" asp-action="Search" asp-controller="Car" id="searchForm" class="form-inline d-flex justify-content-center">
-        <div class="form-group">
+
+    <form method="post" asp-action="Search" asp-controller="Car" id="searchForm" class="form-inline d-flex justify-content-between align-items-center py-3 w-75 rounded bg-white">
+        <div class="form-group d-flex justify-content-center">
             <label class="mr-2"></label>
             <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control mr-2">
                 <option value="">Select a condition</option>
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group d-flex justify-content-center">
             <label class="mr-2"></label>
             <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands ?? new List<SelectListItem>(), "BrandId", "Name"))" class="form-control mr-2" id="brandDropdown">
                 <option value="">Select a brand</option>
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group d-flex justify-content-center">
             <label class="mr-2"></label>
             <select asp-for="ModelId" class="form-control mr-2" id="modelDropdown">
                 <option value="">Select a model</option>
             </select>
         </div>
 
-        <div class="form-group col-2">
-            <label asp-for="PriceRange" class="mr-2">Price Range:</label>
+        <div class="form-group d-flex flex-column justify-content-center col-2">
             <input asp-for="PriceRange" id="priceRangeSlider" class="multi-range" type="text" data-slider-min="0" data-slider-max="500000" data-slider-step="50" data-slider-value="[0,500000]" />
 
-            <span id="priceRangeLabel" class="slider-label"></span>
+            <div class="d-flex justify-content-between">
+                <span id="minPriceLabel" class="slider-label"></span>
+                <span id="maxPriceLabel" class="slider-label"></span>
+            </div>
         </div>
 
         <input asp-for="MinPrice" id="MinPrice" type="hidden" />
@@ -57,76 +54,27 @@
         </div>
     </form>
 </div>
-<div class="row">
+<div class="row" style="margin-top:-50px">
     <form method="post" asp-action="Search" asp-controller="Car" id="searchFormCarType" class="form-inline d-flex justify-content-center align-content-between">
         <div class="form-group">
             <input asp-for="CarType" id="carTypeInput" type="hidden" />
-
             <div class="btn-group" role="group" aria-label="Car Type Buttons">
-                <button type="button" class="btn btn-secondary" onclick="setCarType('Sedan')">Sedan</button>
-                <button type="button" class="btn btn-secondary" onclick="setCarType('Hatchback')">Hatchback</button>
-                <button type="button" class="btn btn-secondary" onclick="setCarType('Micro')">Micro</button>
-                <button type="button" class="btn btn-secondary" onclick="setCarType('SUV')">SUV</button>
+                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Sedan')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/55/55283.png" alt="Sedan" style="max-width: 30px; filter: brightness(0) invert(1);" /> Sedan
+                </button>
+                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Hatchback')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/55/55308.png" alt="Hatchback" style="max-width: 30px; filter: brightness(0) invert(1);" /> Hatchback
+                </button>
+                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Micro')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                    <img src="https://cdn-icons-png.flaticon.com/128/9983/9983078.png" alt="Micro" style="max-width: 30px; filter: brightness(0) invert(1); transform: scaleX(-1);" /> Micro
+                </button>
+                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('SUV')" style="width: 150px; display: flex; align-items: center; justify-content: center;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/55/55280.png" alt="SUV" style="max-width: 30px; filter: brightness(0) invert(1);" /> SUV
+                </button>
             </div>
         </div>
     </form>
 </div>
-
-<!-- Add Bootstrap CSS and JS dependencies -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-<div class="row">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            @for (int i = 0; i < ViewBag.TopCars.Count; i++)
-            {
-                <div class="carousel-item @((i == 0) ? "active" : "")">
-                    <div class="row">
-                        @for (int j = i - 1; j <= i + 1; j++)
-                        {
-                            var carIndex = (j + ViewBag.TopCars.Count) % ViewBag.TopCars.Count;
-                            var car = ViewBag.TopCars[carIndex];
-                            <div class="col-md-4 mb-4 p-2 card">
-                                <div class="d-flex flex-column">
-                                    <!-- Car Image -->
-                                    <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top img-fluid" alt="Car Photo" style="height: 250px; object-fit: cover; transition: filter 0.3s;">
-
-                                    <div class="card-body">
-                                        <!-- Car Name -->
-                                        <h3 class="card-title">@car.Model.Name</h3>
-
-                                        <!-- Car Details with Icons -->
-                                        <div class="card-text d-flex justify-content-between">
-                                            <h5>@car.Price лв.</h5>
-                                            <div class="d-flex">
-                                                <p class="pe-2">@car.Mileage</p>
-                                                <p class="pe-2">@car.EngineType</p>
-                                                <p class="pe-2">@car.TransmissionType</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            }
-        </div>
-        <!-- Carousel Controls -->
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
-</div>
-
 
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -178,8 +126,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous"></script>
 
     <script>
-        // Existing script content
-
         // Initialize Bootstrap Slider for the price range
         $('#priceRangeSlider').slider({
             tooltip: 'hide'
@@ -187,19 +133,21 @@
             var minPrice = ev.value[0];
             var maxPrice = ev.value[1];
 
-            $('#priceRangeLabel').text(minPrice + ' - ' + maxPrice);
+            $('#minPriceLabel').text(minPrice);
+            $('#maxPriceLabel').text(maxPrice);
 
             // Set the values to hidden fields or update your form elements
             $('#MinPrice').val(minPrice);
             $('#MaxPrice').val(maxPrice);
         });
 
-        // Function to set initial label value
-        function setInitialLabel() {
+        // Function to set initial label values
+        function setInitialLabels() {
             var minPrice = $('#priceRangeSlider').data('slider-min');
             var maxPrice = $('#priceRangeSlider').data('slider-max');
 
-            $('#priceRangeLabel').text(minPrice + ' - ' + maxPrice);
+            $('#minPriceLabel').text(minPrice);
+            $('#maxPriceLabel').text(maxPrice);
 
             // Set the initial values to hidden fields or update your form elements
             $('#MinPrice').val(minPrice);
@@ -208,7 +156,7 @@
 
         // Execute the script on page load
         $(document).ready(function () {
-            setInitialLabel();
+            setInitialLabels();
         });
 
         // Handle slide event on the priceRangeSlider
@@ -216,7 +164,8 @@
             var minPrice = ev.value[0];
             var maxPrice = ev.value[1];
 
-            $('#priceRangeLabel').text(minPrice + ' - ' + maxPrice);
+            $('#minPriceLabel').text(minPrice);
+            $('#maxPriceLabel').text(maxPrice);
 
             // Set the values to hidden fields or update your form elements
             $('#MinPrice').val(minPrice);
@@ -232,25 +181,5 @@
             $('#carTypeInput').val(carType);
             $('#searchFormCarType').submit();
         }
-    </script>
-    <script>
-        $('#carouselExampleIndicators').carousel({
-            interval: false // Disable automatic sliding
-        });
-
-        $('#carouselExampleIndicators').on('slide.bs.carousel', function (e) {
-            // Manually handle the slide transition
-            var currentIndex = e.from;
-            var nextIndex = e.to;
-
-            // Determine the indices of the cards to be displayed
-            var prevCardIndex = (nextIndex - 1 + ViewBag.TopCars.Count) % ViewBag.TopCars.Count;
-            var nextCardIndex = (nextIndex + 1) % ViewBag.TopCars.Count;
-
-            // Update the active class for the cards
-            $('.carousel-item').removeClass('active');
-            $('.carousel-item').eq(prevCardIndex).addClass('active');
-            $('.carousel-item').eq(nextCardIndex).addClass('active');
-        });
     </script>
 }

@@ -1,6 +1,7 @@
 ﻿using CarDealership.Data;
 using CarDealership.Models;
 using CarDealership.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

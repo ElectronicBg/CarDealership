@@ -7,196 +7,209 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+<div class="container">
 
-<h2>Search Cars</h2>
-<form method="post" asp-action="Search" asp-controller="Car" id="searchForm">
-    <div>
-        <label asp-for="BrandId"></label>
-        <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
-            <option value="">Select a brand</option>
-        </select>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="ModelId"></label>
-        <select asp-for="ModelId" class="form-control" id="modelDropdown">
-            <option value="">Select a model</option>
-        </select>
-    </div>
+    <h2>Search Cars</h2>
+    <form method="post" asp-action="Search" asp-controller="Car" id="searchForm">
+        <div class="col-12 d-flex justify-content-around mb-2">
+            <div class="form-group">
+                <label asp-for="Condition"></label>
+                <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
+                    <option value="">Select a condition</option>
+                </select>
+            </div>
+            <div>
+                <label asp-for="BrandId"></label>
+                <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
+                    <option value="">Select a brand</option>
+                </select>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="EngineType"></label>
-        <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
-            <option value="">Select an engine type</option>
-        </select>
-    </div>
+            <div class="form-group">
+                <label asp-for="ModelId"></label>
+                <select asp-for="ModelId" class="form-control" id="modelDropdown">
+                    <option value="">Select a model</option>
+                </select>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="TransmissionType"></label>
-        <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
-            <option value="">Select a transmission type</option>
-        </select>
-    </div>
+            <div class="form-group">
+                <label asp-for="CarType"></label>
+                <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
+                    <option value="">Select a car type</option>
+                </select>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="CarColorId"></label>
-        <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
-            <option value="">Select a car color</option>
-        </select>
-    </div>
+            <div>
+                <button type="button" class="btn btn-secondary" id="toggleButton">Show More Options</button>
+                <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Region"></label>
-        <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
-            <option value="">Select a region</option>
-        </select>
-    </div>
+        <div id="additionalFields" style="display: none;">
+            <div class="d-flex flex-wrap gap-3 mx-6">
+                <div class="form-group">
+                    <label asp-for="EngineType"></label>
+                    <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
+                        <option value="">Select an engine type</option>
+                    </select>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="MinYear"></label>
-        <input asp-for="MinYear" class="form-control" />
-    </div>
+                <div class="form-group">
+                    <label asp-for="TransmissionType"></label>
+                    <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
+                        <option value="">Select a transmission type</option>
+                    </select>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="MaxYear"></label>
-        <input asp-for="MaxYear" class="form-control" />
-    </div>
+                <div class="form-group">
+                    <label asp-for="CarColorId"></label>
+                    <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
+                        <option value="">Select a car color</option>
+                    </select>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Mileage"></label>
-        <input asp-for="Mileage" class="form-control" />
-    </div>
+                <div class="form-group">
+                    <label asp-for="Region"></label>
+                    <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
+                        <option value="">Select a region</option>
+                    </select>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="CarType"></label>
-        <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
-            <option value="">Select a car type</option>
-        </select>
-    </div>
+                <div class="form-group">
+                    <label asp-for="MinYear"></label>
+                    <input asp-for="MinYear" class="form-control" />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Condition"></label>
-        <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
-            <option value="">Select a condition</option>
-        </select>
-    </div>
+                <div class="form-group">
+                    <label asp-for="MaxYear"></label>
+                    <input asp-for="MaxYear" class="form-control" />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="MinPrice"></label>
-        <input asp-for="MinPrice" class="form-control" />
-    </div>
+                <div class="form-group">
+                    <label asp-for="Mileage"></label>
+                    <input asp-for="Mileage" class="form-control" />
+                </div>
 
-    <div class="form-group">
-        <label asp-for="MaxPrice"></label>
-        <input asp-for="MaxPrice" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="orderBy">Order By</label>
-        <select id="orderBy" name="orderBy" class="form-control">
-            <option value="">Default</option>
-            <option value="PriceAsc">Price Ascending</option>
-            <option value="PriceDesc">Price Descending</option>
-            <option value="MileageAsc">Mileage Ascending</option>
-            <option value="MileageDesc">Mileage Descending</option>
-        </select>
-    </div>
+                <div class="form-group">
+                    <label asp-for="MinPrice"></label>
+                    <input asp-for="MinPrice" class="form-control" />
+                </div>
 
-    <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
-</form>
-@if (ViewBag.SearchResults != null && ViewBag.SearchResults.Count > 0)
-{
-    <h3>Search Results</h3>
+                <div class="form-group">
+                    <label asp-for="MaxPrice"></label>
+                    <input asp-for="MaxPrice" class="form-control" />
+                </div>
 
-    <div class="row">
-        @foreach (var car in ViewBag.SearchResults)
-        {
-            <div class="col-md-4 mb-4 p-2">
-                <div class="card d-flex flex-column">
-                    <!-- Car Image -->
-                    <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top img-fluid" alt="Car Photo" style="height: 250px; object-fit: cover; transition: filter 0.3s;">
+                <div class="form-group">
+                    <label for="orderBy">Order By</label>
+                    <select id="orderBy" name="orderBy" class="form-control">
+                        <option value="">Default</option>
+                        <option value="PriceAsc">Price Ascending</option>
+                        <option value="PriceDesc">Price Descending</option>
+                        <option value="MileageAsc">Mileage Ascending</option>
+                        <option value="MileageDesc">Mileage Descending</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+    @if (ViewBag.SearchResults != null && ViewBag.SearchResults.Count > 0)
+    {
+        <h3>Search Results</h3>
 
-                    <div class="card-body">
-                        <!-- Car Name -->
-                        <h3 class="card-title">@car.Model.Name</h3>
+        <div class="row">
+            @foreach (var car in ViewBag.SearchResults)
+            {
+                <div class="col-md-4 mb-4 p-2">
+                    <div class="card d-flex flex-column">
+                        <!-- Car Image -->
+                        <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top img-fluid" alt="Car Photo" style="height: 250px; object-fit: cover; transition: filter 0.3s;">
 
-                        <!-- Car Details with Icons -->
-                        <div class="card-text d-flex justify-content-between">
-                            <h5>@car.Price лв.</h5>
-                            <div class="d-flex">
-                                <p class="pe-2">@car.Mileage</p>
-                                <p class="pe-2">@car.EngineType</p>
-                                <p class="pe-2">@car.TransmissionType</p>
+                        <div class="card-body">
+                            <!-- Car Name -->
+                            <h3 class="card-title">@car.Model.Name</h3>
+
+                            <!-- Car Details with Icons -->
+                            <div class="card-text d-flex justify-content-between">
+                                <h5>@car.Price лв.</h5>
+                                <div class="d-flex">
+                                    <p class="pe-2">@car.Mileage</p>
+                                    <p class="pe-2">@car.EngineType</p>
+                                    <p class="pe-2">@car.TransmissionType</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            @* <div class="card">
-    <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top" alt="Car Photo">
-    <div class="card-body">
-    <h5 class="card-title">@car.Model.Name</h5>
-    <p class="card-text">
-    <strong>Brand:</strong> @car.Brand.Name<br>
-    <strong>Engine Type:</strong> @car.EngineType<br>
-    <strong>Transmission Type:</strong> @car.TransmissionType<br>
-    <strong>Car Color:</strong> @car.CarColor.Name<br>
-    <strong>Region:</strong> @car.Region<br>
-    <strong>Year:</strong> @car.Year<br>
-    <strong>Mileage:</strong> @car.Mileage<br>
-    <strong>Power:</strong> @car.Power<br>
-    <strong>Car Type:</strong> @car.CarType<br>
-    <strong>Condition:</strong> @car.Condition<br>
-    <strong>Price:</strong> @car.Price
-    </p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#carGalleryModal-@car.CarId">
-    View Photos
-    </button>
-    </div>
-    </div>
+                @* <div class="card">
+        <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top" alt="Car Photo">
+        <div class="card-body">
+        <h5 class="card-title">@car.Model.Name</h5>
+        <p class="card-text">
+        <strong>Brand:</strong> @car.Brand.Name<br>
+        <strong>Engine Type:</strong> @car.EngineType<br>
+        <strong>Transmission Type:</strong> @car.TransmissionType<br>
+        <strong>Car Color:</strong> @car.CarColor.Name<br>
+        <strong>Region:</strong> @car.Region<br>
+        <strong>Year:</strong> @car.Year<br>
+        <strong>Mileage:</strong> @car.Mileage<br>
+        <strong>Power:</strong> @car.Power<br>
+        <strong>Car Type:</strong> @car.CarType<br>
+        <strong>Condition:</strong> @car.Condition<br>
+        <strong>Price:</strong> @car.Price
+        </p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#carGalleryModal-@car.CarId">
+        View Photos
+        </button>
+        </div>
+        </div>
 
-    <!-- Modal for Car Gallery -->
-    <div class="modal fade" id="carGalleryModal-@car.CarId" tabindex="-1" role="dialog" aria-labelledby="carGalleryModalLabel-@car.CarId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <div class="modal-header">
-    <h5 class="modal-title" id="carGalleryModalLabel-@car.CarId">Car Photos</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body">
-    <!-- Display photos in the modal -->
-    @foreach (var photo in car.Photos)
-    {
-    <img src="@photo.Url" alt="Car Photo" class="img-fluid" />
-    }
-    </div>
-    <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    </div>
-    </div>
-    </div>
-    </div> *@
+        <!-- Modal for Car Gallery -->
+        <div class="modal fade" id="carGalleryModal-@car.CarId" tabindex="-1" role="dialog" aria-labelledby="carGalleryModalLabel-@car.CarId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="carGalleryModalLabel-@car.CarId">Car Photos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <!-- Display photos in the modal -->
+        @foreach (var photo in car.Photos)
+        {
+        <img src="@photo.Url" alt="Car Photo" class="img-fluid" />
         }
-    </div>
-    <form asp-action="Search" asp-controller="Car" method="post" id="paginationForm">
-        <input type="hidden" name="pageNumber" id="pageNumberInput" value="@(ViewBag.CurrentPage)" />
-        <input type="hidden" name="pageSize" value="@(ViewBag.PageSize)" />
-        <ul class="pagination">
-            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(1)">First</a></li>
-            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage - 1))">Previous</a></li>
-            <li class="page-item"><span class="page-link">Page @(ViewBag.CurrentPage) of @(ViewBag.TotalPages)</span></li>
-            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage + 1))">Next</a></li>
-            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.TotalPages))">Last</a></li>
-        </ul>
-    </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+        </div>
+        </div> *@
+            }
+        </div>
+        <form asp-action="Search" asp-controller="Car" method="post" id="paginationForm">
+            <input type="hidden" name="pageNumber" id="pageNumberInput" value="@(ViewBag.CurrentPage)" />
+            <input type="hidden" name="pageSize" value="@(ViewBag.PageSize)" />
+            <ul class="pagination">
+                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(1)">First</a></li>
+                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage - 1))">Previous</a></li>
+                <li class="page-item"><span class="page-link">Page @(ViewBag.CurrentPage) of @(ViewBag.TotalPages)</span></li>
+                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage + 1))">Next</a></li>
+                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.TotalPages))">Last</a></li>
+            </ul>
+        </form>
 
-}
-else
-{
-    <p>No results found.</p>
-}
+    }
+    else
+    {
+        <p>No results found.</p>
+    }
+</div>
+
 <style>
     .card-img-top:hover {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -253,5 +266,24 @@ else
             document.getElementById("pageNumberInput").value = pageNumber;
             document.getElementById("paginationForm").submit();
         }
-    </script>   
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Cache the additionalFields element for better performance
+            var $additionalFields = $("#additionalFields");
+
+            // Toggle visibility of additional fields on button click
+            $("#toggleButton").click(function () {
+
+                $additionalFields.slideToggle(200, function () {
+
+                    if ($additionalFields.is(":visible")) {
+                        $additionalFields.css({
+                            display: "block",
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 }
