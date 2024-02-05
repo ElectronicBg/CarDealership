@@ -256,6 +256,27 @@ namespace CarDealership.Controllers
             return View("Search");
         }
 
+        //Car Details
+        [HttpGet]
+        [Route("Car/Details/{id}")]
+        public IActionResult Details(int id)
+        {
+            // Retrieve the car details based on the 'id' parameter
+            var car = _context.Cars
+                .Include(c => c.Brand)
+                .Include(c => c.Model)
+                .Include(c => c.CarColor)
+                .Include(c => c.Photos)
+                .FirstOrDefault(c => c.CarId == id);
+
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            return View(car);
+        }
+
         // Update Car
         public IActionResult Edit(int id)
         {

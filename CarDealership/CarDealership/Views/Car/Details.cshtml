@@ -1,0 +1,73 @@
+﻿@model CarDealership.Models.Car
+@{
+    ViewData["Title"] = "Cars Details";
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<h2>Car Details</h2>
+
+<div class="container">
+    <div class="row">
+        <div id="carGalleryCarousel" class="carousel slide mb-4" data-ride="carousel" style="height: 500px; width: 800px;">
+            <div class="carousel-inner">
+                @foreach (var photo in Model.Photos)
+                {
+                    <div class="carousel-item @(photo == Model.Photos.First() ? "active" : "")">
+                        <img src="@photo.Url" class="d-block w-100" alt="Car Photo" style="height: 500px; width: 800px; object-fit: cover;" loading="lazy">
+                    </div>
+                }
+            </div>
+
+            <!-- Carousel Controls -->
+            <a class="carousel-control-prev" href="#carGalleryCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+            </a>
+            <a class="carousel-control-next" href="#carGalleryCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+            </a>
+        </div>
+
+        <!-- Car Information Section -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <!-- Car Details Card -->
+                <div class="card">
+                    <div class="card-body gap-1">
+                        <h5 class="card-title">@Model.Brand.Name</h5>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Engine Type:</strong> @Model.EngineType</p>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Transmission Type:</strong> @Model.TransmissionType</p>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Car Color:</strong> @Model.CarColor.Name</p>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Region:</strong> @Model.Region</p>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Year:</strong> @Model.Year</p>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Mileage:</strong> @Model.Mileage</p>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Power:</strong> @Model.Power</p>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Car Type:</strong> @Model.CarType</p>
+                        <p style="border-bottom: 1px solid #ccc;"><strong>Condition:</strong> @Model.Condition</p>
+                        <p><strong>Price:</strong> @Model.Price</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a asp-action="Search" class="btn btn-primary">Back to List</a>
+
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Initialize the Carousel -->
+    <script>
+        $(document).ready(function () {
+            $('#carGalleryCarousel').carousel();
+        });
+    </script>
+}

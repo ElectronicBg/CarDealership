@@ -6,6 +6,7 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w==" crossorigin="anonymous" />
 </head>
 <div class="container">
 
@@ -76,30 +77,35 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="MinYear"></label>
-                    <input asp-for="MinYear" class="form-control" />
+                <div class="form-group d-flex flex-column justify-content-center col-2">
+                    <input asp-for="YearRange" id="yearRangeSlider" class="multi-range" type="text" data-slider-min="1900" data-slider-max="2024" data-slider-step="1" data-slider-value="[1901,2024]" />
+
+                    <div class="d-flex justify-content-between">
+                        <span id="minYearLabel" class="slider-label"></span>
+                        <span id="maxYearLabel" class="slider-label"></span>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="MaxYear"></label>
-                    <input asp-for="MaxYear" class="form-control" />
-                </div>
+                <input asp-for="MinYear" id="MinYear" type="hidden" />
+                <input asp-for="MaxYear" id="MaxYear" type="hidden" />
+
 
                 <div class="form-group">
                     <label asp-for="Mileage"></label>
                     <input asp-for="Mileage" class="form-control" />
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="MinPrice"></label>
-                    <input asp-for="MinPrice" class="form-control" />
+                <div class="form-group d-flex flex-column justify-content-center col-2">
+                    <input asp-for="PriceRange" id="priceRangeSlider" class="multi-range" type="text" data-slider-min="0" data-slider-max="100000" data-slider-step="500" data-slider-value="[0,100000]" />
+
+                    <div class="d-flex justify-content-between">
+                        <span id="minPriceLabel" class="slider-label"></span>
+                        <span id="maxPriceLabel" class="slider-label"></span>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="MaxPrice"></label>
-                    <input asp-for="MaxPrice" class="form-control" />
-                </div>
+                <input asp-for="MinPrice" id="MinPrice" type="hidden" />
+                <input asp-for="MaxPrice" id="MaxPrice" type="hidden" />
 
                 <div class="form-group">
                     <label for="orderBy">Order By</label>
@@ -124,7 +130,9 @@
                 <div class="col-md-4 mb-4 p-2">
                     <div class="card d-flex flex-column">
                         <!-- Car Image -->
-                        <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top img-fluid" alt="Car Photo" style="height: 250px; object-fit: cover; transition: filter 0.3s;">
+                        <a href="@Url.Action("Details", "Car", new { id = car.CarId })">
+                            <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top img-fluid" alt="Car Photo" style="height: 250px; object-fit: cover; transition: filter 0.3s;">
+                        </a>
 
                         <div class="card-body">
                             <!-- Car Name -->
@@ -286,4 +294,110 @@
             });
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous"></script>
+
+    <script>
+        // Initialize Bootstrap Slider for the price range
+        $('#priceRangeSlider').slider({
+            tooltip: 'hide'
+        }).on('slide', function (ev) {
+            var minPrice = ev.value[0];
+            var maxPrice = ev.value[1];
+
+            $('#minPriceLabel').text(minPrice);
+            $('#maxPriceLabel').text(maxPrice);
+
+            // Set the values to hidden fields or update your form elements
+            $('#MinPrice').val(minPrice);
+            $('#MaxPrice').val(maxPrice);
+        });
+
+        // Function to set initial label values
+        function setInitialLabels() {
+            var minPrice = $('#priceRangeSlider').data('slider-min');
+            var maxPrice = $('#priceRangeSlider').data('slider-max');
+
+            $('#minPriceLabel').text(minPrice);
+            $('#maxPriceLabel').text(maxPrice);
+
+            // Set the initial values to hidden fields or update your form elements
+            $('#MinPrice').val(minPrice);
+            $('#MaxPrice').val(maxPrice);
+        }
+
+        // Execute the script on page load
+        $(document).ready(function () {
+            setInitialLabels();
+        });
+
+        // Handle slide event on the priceRangeSlider
+        $('#priceRangeSlider').on('slide', function (ev) {
+            var minPrice = ev.value[0];
+            var maxPrice = ev.value[1];
+
+            $('#minPriceLabel').text(minPrice);
+            $('#maxPriceLabel').text(maxPrice);
+
+            // Set the values to hidden fields or update your form elements
+            $('#MinPrice').val(minPrice);
+            $('#MaxPrice').val(maxPrice);
+        });
+
+        $('#searchForm').submit(function () {
+            console.log('Submitting form with MinPrice:', $('#MinPrice').val(), 'and MaxPrice:', $('#MaxPrice').val());
+        });
+    </script>
+    <script>
+        // Initialize Bootstrap Slider for the year range
+        $('#yearRangeSlider').slider({
+            tooltip: 'hide'
+        }).on('slide', function (ev) {
+            var minYear = ev.value[0];
+            var maxYear = ev.value[1];
+
+            $('#minYearLabel').text('Min Year: ' + minYear);
+            $('#maxYearLabel').text('Max Year: ' + maxYear);
+
+            // Set the values to hidden fields or update your form elements
+            $('#MinYear').val(minYear);
+            $('#MaxYear').val(maxYear);
+        });
+
+        // Function to set initial label values
+        function setInitialYearLabels() {
+            var minYear = $('#yearRangeSlider').data('slider-min');
+            var maxYear = $('#yearRangeSlider').data('slider-max');
+
+            $('#minYearLabel').text('Min Year: ' + minYear);
+            $('#maxYearLabel').text('Max Year: ' + maxYear);
+
+            // Set the initial values to hidden fields or update your form elements
+            $('#MinYear').val(minYear);
+            $('#MaxYear').val(maxYear);
+        }
+
+        // Execute the script on page load
+        $(document).ready(function () {
+            setInitialYearLabels();
+        });
+
+        // Handle slide event on the yearRangeSlider
+        $('#yearRangeSlider').on('slide', function (ev) {
+            var minYear = ev.value[0];
+            var maxYear = ev.value[1];
+
+            $('#minYearLabel').text('Min Year: ' + minYear);
+            $('#maxYearLabel').text('Max Year: ' + maxYear);
+
+            // Set the values to hidden fields or update your form elements
+            $('#MinYear').val(minYear);
+            $('#MaxYear').val(maxYear);
+        });
+
+        $('#searchForm').submit(function () {
+            console.log('Submitting form with MinYear:', $('#MinYear').val(), 'and MaxYear:', $('#MaxYear').val());
+        });
+    </script>
+
 }

@@ -55,6 +55,10 @@ app.UseEndpoints(endpoints =>
       pattern: "Car/Search",
       defaults: new { controller = "Car", action = "Search" }
   );
+    endpoints.MapControllerRoute(
+        name: "Details",
+        pattern: "Car/Details/{id}",
+        defaults: new { controller = "Car", action = "Details" });
 
     endpoints.MapControllerRoute(
      name: "default",
