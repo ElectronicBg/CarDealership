@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\CarDealership.bundle.scp.css"
     },
     {
+      "Id": "D:\\CarDealership\\CarDealership\\CarDealership\\wwwroot\\Images\\BackgroundIndex.jpg",
+      "PackagePath": "staticwebassets\\Images\\BackgroundIndex.jpg"
+    },
+    {
+      "Id": "D:\\CarDealership\\CarDealership\\CarDealership\\wwwroot\\Images\\CarDealershipLogo.png",
+      "PackagePath": "staticwebassets\\Images\\CarDealershipLogo.png"
+    },
+    {
       "Id": "D:\\CarDealership\\CarDealership\\CarDealership\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

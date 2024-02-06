@@ -12,22 +12,36 @@
     <link rel="stylesheet" href="~/CarDealership.styles.css" asp-append-version="true" />
 </head>
 <body class="mb-0">
-    <header>
+    <header style="background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,0.9921102229954482) 0%, rgba(95,105,116,0.28622787005427175) 100%);">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light ">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarDealership</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="../../../Images/CarDealershipLogo.png" style="width:60px;height:60px;" />
+                    <strong>АвтоПлаза</strong>
+                    </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Index">Cars</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Index">Brands</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Model" asp-action="Index">Models</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Color" asp-action="Index">Colors</a>
+                            </li>
+
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -39,11 +53,13 @@
         @RenderBody()
     </main>
 
-    <footer class="border-top text-muted" style="background-color:#5F6974">
+    <footer class="text-muted" style="background: rgb(95,105,116);
+background: linear-gradient(0deg, rgba(95,105,116,1) 0%, rgba(255,255,255,0.9640990185136554) 100%);">
         <div class="container">
             <div class="row">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarDealership</a>
-                <p class="text-white">© 2024 – CarDealerShip. All Rights Reserved. </p>
+                <div class="d-flex justify-content-center mt-5">
+                    <p class="text-white"><strong>© 2024 – АвтоПлаза. Всички праваза запазени.</strong></p>
+                </div>            
             </div>
         </div>
     </footer>

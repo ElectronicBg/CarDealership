@@ -5,87 +5,91 @@
     var photo = string.Empty;
 }
 
-<h2>Edit Car</h2>
-<form method="post" asp-controller="Car" asp-action="Edit">
-    <div class="form-group">
-        <label asp-for="BrandId" class="form-label"></label>
-        <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
-            <option value="">Select a brand</option>
-        </select>
-    </div>
+<div class="container d-flex flex-column align-items-center">
+    <h2>Edit Car</h2>
+    <div class="col-7 d-flex justify-content-center">
+        <form method="post" asp-controller="Car" asp-action="Edit">
+            <div class="form-group">
+                <label asp-for="BrandId" class="form-label"></label>
+                <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
+                    <option value="">Select a brand</option>
+                </select>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="ModelId" class="form-label"></label>
-        <select asp-for="ModelId" asp-items="@(new SelectList(ViewBag.Models, "ModelId", "Name"))" class="form-control" id="modelDropdown">
-            <option value="">Select a model</option>
-        </select>
-    </div>
+            <div class="form-group">
+                <label asp-for="ModelId" class="form-label"></label>
+                <select asp-for="ModelId" asp-items="@(new SelectList(ViewBag.Models, "ModelId", "Name"))" class="form-control" id="modelDropdown">
+                    <option value="">Select a model</option>
+                </select>
+            </div>
 
-    <div class="form-group">
-        <label asp-for="EngineType" class="form-label"></label>
-        <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
-            <option value="">Select an engine type</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="TransmissionType" class="form-label"></label>
-        <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
-            <option value="">Select a transmission type</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="CarColorId" class="form-label"></label>
-        <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
-            <option value="">Select a car color</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Region" class="form-label"></label>
-        <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
-            <option value="">Select a region</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Year" class="form-label"></label>
-        <input asp-for="Year" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Mileage" class="form-label"></label>
-        <input asp-for="Mileage" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Power" class="form-label"></label>
-        <input asp-for="Power" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="CarType" class="form-label"></label>
-        <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
-            <option value="">Select a car type</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Condition" class="form-label"></label>
-        <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
-            <option value="">Select a condition</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Price" class="form-label"></label>
-        <input asp-for="Price" class="form-control" />
-    </div>
-    <input asp-for="@Model.CarId" class="d-none" id="currentCarId" value="@Model.CarId" />
-    <input asp-controller="Car" asp-action="Edit" type="submit" value="Update" class="btn btn-primary" />
+            <div class="form-group">
+                <label asp-for="EngineType" class="form-label"></label>
+                <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
+                    <option value="">Select an engine type</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransmissionType" class="form-label"></label>
+                <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
+                    <option value="">Select a transmission type</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarColorId" class="form-label"></label>
+                <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
+                    <option value="">Select a car color</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Region" class="form-label"></label>
+                <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
+                    <option value="">Select a region</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="form-label"></label>
+                <input asp-for="Year" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Mileage" class="form-label"></label>
+                <input asp-for="Mileage" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Power" class="form-label"></label>
+                <input asp-for="Power" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CarType" class="form-label"></label>
+                <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
+                    <option value="">Select a car type</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Condition" class="form-label"></label>
+                <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
+                    <option value="">Select a condition</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control" />
+            </div>
+            <input asp-for="@Model.CarId" class="d-none" id="currentCarId" value="@Model.CarId" />
+            <input asp-controller="Car" asp-action="Edit" type="submit" value="Update" class="btn btn-primary" />
 
-    <div class="form-group">
-        <label asp-for="@photo">Photo URLs</label>
-        <input asp-for="@photo" id="photoUrl" name="photoUrl" class="form-control" />
-        <span asp-validation-for="@photo" class="text-danger"></span>
-        <small class="form-text text-muted">Enter one or more photo URLs (separated by commas).</small>
-    </div>
+            <div class="form-group">
+                <label asp-for="@photo">Photo URLs</label>
+                <input asp-for="@photo" id="photoUrl" name="photoUrl" class="form-control" />
+                <span asp-validation-for="@photo" class="text-danger"></span>
+                <small class="form-text text-muted">Enter one URL.</small>
+            </div>
 
-    <button type="button" id="addPhotoBtn" class="btn btn-secondary">Add Photo</button>
-    <button type="button" id="savePhotosBtn" class="btn btn-secondary">Save Photo</button>
-</form>
+            <button type="button" id="addPhotoBtn" class="btn btn-secondary">Add Photo</button>
+            <button type="button" id="savePhotosBtn" class="btn btn-secondary">Save Photo</button>
+        </form>
+    </div>
+</div>
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -113,13 +117,13 @@
     </script>
     <script>
         $(document).ready(function () {
-            var photo = []; 
+            var photo = [];
 
             // Event handler for the "Add Photo" button
             $("#addPhotoBtn").on('click', function () {
                 var photoUrlInput = $("#photoUrl");
                 var newUrl = photoUrlInput.val();
-             
+
                 // Add the new URL to the array if not empty
                 if (newUrl.trim() !== "") {
                     photo.push(newUrl); // Ensure consistency with your model
@@ -137,9 +141,9 @@
                 // Send an AJAX request to add the photos to the current car
                 $.ajax({
                     type: 'POST',
-                    url: '/Photo/AddToCar', 
-                    data: { carId: currentCarId, photoUrls: photo }, 
-                    traditional: true, 
+                    url: '/Photo/AddToCar',
+                    data: { carId: currentCarId, photoUrls: photo },
+                    traditional: true,
                     success: function () {
                         console.log("Photos added successfully");
                     },

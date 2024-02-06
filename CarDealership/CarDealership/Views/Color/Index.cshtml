@@ -3,29 +3,22 @@
     ViewData["Title"] = "Colors List";
 }
 
-<h2>Colors List</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Value</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="container">
+    <h2>Colors List</h2>
+    <div class="row">
         @foreach (var color in Model)
         {
-            <tr>
-                <td>@color.CarColorId</td>
-                <td>@color.Name</td>
-                <td>@color.Value</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@color.CarColorId" class="btn btn-primary">Edit</a>
-                </td>
-            </tr>
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@color.Name</h5>
+                        <div class="color-display mb-2" style="width:20px; height:20px; background-color: @color.Value;"></div>
+                        <a href="@Url.Action("Edit", new { id = color.CarColorId })" class="btn btn-primary">Edit</a>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
 
-<a asp-action="Create" class="btn btn-success">Add New Color</a>
+    <a asp-action="Create" class="btn btn-success">Add New Color</a>
+</div>

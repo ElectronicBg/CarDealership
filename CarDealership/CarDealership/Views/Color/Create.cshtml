@@ -3,21 +3,23 @@
     ViewData["Title"] = "Create Color";
 }
 
-<h2>Create Color</h2>
-<form method="post" asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+<div class="container">
+    <h2>Create Color</h2>
+    <form method="post" asp-action="Create">
+        <div class="form-group">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Value" class="form-label"></label>
-        <input asp-for="Value" class="form-control" />
-        <span asp-validation-for="Value" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Value" class="form-label"></label>
+            <input asp-for="Value" class="form-control" />
+            <span asp-validation-for="Value" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Add Color</button>
-</form>
+        <button type="submit" class="btn btn-primary">Add Color</button>
+    </form>
 
-<a asp-action="Index" class="btn btn-secondary">Back to Colors List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to Colors List</a>
+</div>

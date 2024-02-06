@@ -5,9 +5,12 @@
 }
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-gGkZY2ZV9+u9eVLd2xKkZW6Ak3Zc5PVVzUYE9djl1ViiJ8wOA6kA4tCSKJAAqnkmP7TkdwwvK9TGRMzjp6Bu7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
-<div class="row d-flex align-content-center justify-content-center vh-100 vw-100" style="background-image: url(https://cdn.motor1.com/images/mgl/krgqn/s1/2019-mercedes-amg-gle-53-4matic.jpg); background-size: cover; background-position: center;  border-radius: 0 0 20% 20%;">
+<div class="row d-flex align-content-center justify-content-center vw-100" style="height:80vh;background-image:url('/Images/BackgroundIndex.jpg'); background-size: cover; background-position: center;  border-radius: 0 0 20% 20%;">
+
    
     <div class="d-flex flex-column align-items-center mb-4">
         <h2 class="fs-1 fw-bolder text-white">Search Less. Live More.</h2>
@@ -50,7 +53,12 @@
 
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+            <button type="submit" class="btn btn-primary px-4" id="searchButton" style="background-color:#08c2df; border:none; transition: background-color 0.3s;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" style="fill: white;">
+                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                </svg>
+                Search
+            </button>
         </div>
     </form>
 </div>
@@ -59,16 +67,16 @@
         <div class="form-group">
             <input asp-for="CarType" id="carTypeInput" type="hidden" />
             <div class="btn-group" role="group" aria-label="Car Type Buttons">
-                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Sedan')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Sedan')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px; background-color: #08c2df; border: none;">
                     <img src="https://cdn-icons-png.flaticon.com/512/55/55283.png" alt="Sedan" style="max-width: 30px; filter: brightness(0) invert(1);" /> Sedan
                 </button>
-                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Hatchback')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Hatchback')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px; background-color: #08c2df; border: none;">
                     <img src="https://cdn-icons-png.flaticon.com/512/55/55308.png" alt="Hatchback" style="max-width: 30px; filter: brightness(0) invert(1);" /> Hatchback
                 </button>
-                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Micro')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Micro')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px; background-color: #08c2df; border: none;">
                     <img src="https://cdn-icons-png.flaticon.com/128/9983/9983078.png" alt="Micro" style="max-width: 30px; filter: brightness(0) invert(1); transform: scaleX(-1);" /> Micro
                 </button>
-                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('SUV')" style="width: 150px; display: flex; align-items: center; justify-content: center;">
+                <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('SUV')" style="width: 150px; display: flex; align-items: center; justify-content: center; background-color: #08c2df; border: none;">
                     <img src="https://cdn-icons-png.flaticon.com/512/55/55280.png" alt="SUV" style="max-width: 30px; filter: brightness(0) invert(1);" /> SUV
                 </button>
             </div>

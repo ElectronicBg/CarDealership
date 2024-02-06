@@ -1,27 +1,42 @@
 ﻿@using Cinema.Models
 @using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var userId = User.Claims.FirstOrDefault(a => a.Type == ClaimTypes.NameIdentifier)?.Value;
+
+        if (userId == null)
+        {
+            throw new ArgumentException("Invalid user.");
+        }
+
+        var user = await UserManager.FindByIdAsync(userId);
+
+        <li class="nav-item me-3 pe-3 border-end">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @user.Name!</a>
+        </li>
+
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link" style="border: 1px solid black; border-radius: 20px; padding: 8px 20px; transition: background-color 0.3s; color:black" onmouseover="this.style.borderColor='transparent';this.style.backgroundColor='#D2042D'; this.style.color='white';" onmouseout="this.style.borderColor='black';this.style.backgroundColor=''; this.style.color='black';">
+                    Logout
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" style="border: 1px solid black; border-radius: 20px; padding: 8px 20px; transition: background-color 0.3s;color:black"
+               onmouseover="this.style.borderColor='transparent';this.style.backgroundColor='#08c2df'; this.style.color='white';" onmouseout="this.style.borderColor='black';this.style.backgroundColor=''; this.style.color='black';">Login</a>
+        </li>
+
+        @*         <li class="nav-item">
+    <a class="nav-link me-2 text-dark border-end" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li> *@
+    }
 </ul>
