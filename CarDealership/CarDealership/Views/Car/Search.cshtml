@@ -8,118 +8,122 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w==" crossorigin="anonymous" />
 </head>
-<div class="container">
 
+<form method="post" asp-action="Search" asp-controller="Car" id="searchForm">
+    <div class="col-12 d-flex justify-content-around py-3 mb-2" style="background-color:#0A2357">
 
-    <h2>Search Cars</h2>
-    <form method="post" asp-action="Search" asp-controller="Car" id="searchForm">
-        <div class="col-12 d-flex justify-content-around mb-2">
-            <div class="form-group">
-                <label asp-for="Condition"></label>
-                <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
-                    <option value="">Select a condition</option>
-                </select>
-            </div>
-            <div>
-                <label asp-for="BrandId"></label>
-                <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
-                    <option value="">Select a brand</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ModelId"></label>
-                <select asp-for="ModelId" class="form-control" id="modelDropdown">
-                    <option value="">Select a model</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="CarType"></label>
-                <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
-                    <option value="">Select a car type</option>
-                </select>
-            </div>
-
-            <div>
-                <button type="button" class="btn btn-secondary" id="toggleButton">Show More Options</button>
-                <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
-            </div>
+        <div class="form-group">
+            <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
+                <option value="">Select a condition</option>
+            </select>
         </div>
 
+        <div>
+            <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
+                <option value="">Select a brand</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select asp-for="ModelId" class="form-control" id="modelDropdown">
+                <option value="">Select a model</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
+                <option value="">Select a car type</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="button" class=" text-white border-0 bg-transparent me-2" id="toggleButton">
+                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="#ffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12.9046 3.06005C12.6988 3 12.4659 3 12 3C11.5341 3 11.3012 3 11.0954 3.06005C10.7942 3.14794 10.5281 3.32808 10.3346 3.57511C10.2024 3.74388 10.1159 3.96016 9.94291 4.39272C9.69419 5.01452 9.00393 5.33471 8.36857 5.123L7.79779 4.93281C7.3929 4.79785 7.19045 4.73036 6.99196 4.7188C6.70039 4.70181 6.4102 4.77032 6.15701 4.9159C5.98465 5.01501 5.83376 5.16591 5.53197 5.4677C5.21122 5.78845 5.05084 5.94882 4.94896 6.13189C4.79927 6.40084 4.73595 6.70934 4.76759 7.01551C4.78912 7.2239 4.87335 7.43449 5.04182 7.85566C5.30565 8.51523 5.05184 9.26878 4.44272 9.63433L4.16521 9.80087C3.74031 10.0558 3.52786 10.1833 3.37354 10.3588C3.23698 10.5141 3.13401 10.696 3.07109 10.893C3 11.1156 3 11.3658 3 11.8663C3 12.4589 3 12.7551 3.09462 13.0088C3.17823 13.2329 3.31422 13.4337 3.49124 13.5946C3.69158 13.7766 3.96395 13.8856 4.50866 14.1035C5.06534 14.3261 5.35196 14.9441 5.16236 15.5129L4.94721 16.1584C4.79819 16.6054 4.72367 16.829 4.7169 17.0486C4.70875 17.3127 4.77049 17.5742 4.89587 17.8067C5.00015 18.0002 5.16678 18.1668 5.5 18.5C5.83323 18.8332 5.99985 18.9998 6.19325 19.1041C6.4258 19.2295 6.68733 19.2913 6.9514 19.2831C7.17102 19.2763 7.39456 19.2018 7.84164 19.0528L8.36862 18.8771C9.00393 18.6654 9.6942 18.9855 9.94291 19.6073C10.1159 20.0398 10.2024 20.2561 10.3346 20.4249C10.5281 20.6719 10.7942 20.8521 11.0954 20.94C11.3012 21 11.5341 21 12 21C12.4659 21 12.6988 21 12.9046 20.94C13.2058 20.8521 13.4719 20.6719 13.6654 20.4249C13.7976 20.2561 13.8841 20.0398 14.0571 19.6073C14.3058 18.9855 14.9961 18.6654 15.6313 18.8773L16.1579 19.0529C16.605 19.2019 16.8286 19.2764 17.0482 19.2832C17.3123 19.2913 17.5738 19.2296 17.8063 19.1042C17.9997 18.9999 18.1664 18.8333 18.4996 18.5001C18.8328 18.1669 18.9994 18.0002 19.1037 17.8068C19.2291 17.5743 19.2908 17.3127 19.2827 17.0487C19.2759 16.8291 19.2014 16.6055 19.0524 16.1584L18.8374 15.5134C18.6477 14.9444 18.9344 14.3262 19.4913 14.1035C20.036 13.8856 20.3084 13.7766 20.5088 13.5946C20.6858 13.4337 20.8218 13.2329 20.9054 13.0088C21 12.7551 21 12.4589 21 11.8663C21 11.3658 21 11.1156 20.9289 10.893C20.866 10.696 20.763 10.5141 20.6265 10.3588C20.4721 10.1833 20.2597 10.0558 19.8348 9.80087L19.5569 9.63416C18.9478 9.26867 18.6939 8.51514 18.9578 7.85558C19.1262 7.43443 19.2105 7.22383 19.232 7.01543C19.2636 6.70926 19.2003 6.40077 19.0506 6.13181C18.9487 5.94875 18.7884 5.78837 18.4676 5.46762C18.1658 5.16584 18.0149 5.01494 17.8426 4.91583C17.5894 4.77024 17.2992 4.70174 17.0076 4.71872C16.8091 4.73029 16.6067 4.79777 16.2018 4.93273L15.6314 5.12287C14.9961 5.33464 14.3058 5.0145 14.0571 4.39272C13.8841 3.96016 13.7976 3.74388 13.6654 3.57511C13.4719 3.32808 13.2058 3.14794 12.9046 3.06005Z" stroke="#ffff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Show More Options
+            </button>
+            <button type="submit" class="btn btn-primary border-0" id="searchButton" style="background-color:#08c2df">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" style="fill: white;">
+                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                </svg>
+                Search
+            </button>
+        </div>
+    </div>
+    <div class="container">
         <div id="additionalFields" style="display: none;">
-            <div class="d-flex flex-wrap gap-3 mx-6">
-                <div class="form-group">
-                    <label asp-for="EngineType"></label>
-                    <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
-                        <option value="">Select an engine type</option>
-                    </select>
-                </div>
+            <div class="rounded border">
+                <div class="row">
+                    <div class="d-flex flex-wrap gap-3 mx-6">
+                        <div class="form-group">
+                            <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
+                                <option value="">Select an engine type</option>
+                            </select>
+                        </div>
 
-                <div class="form-group">
-                    <label asp-for="TransmissionType"></label>
-                    <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
-                        <option value="">Select a transmission type</option>
-                    </select>
-                </div>
+                        <div class="form-group">
+                            <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
+                                <option value="">Select a transmission type</option>
+                            </select>
+                        </div>
 
-                <div class="form-group">
-                    <label asp-for="CarColorId"></label>
-                    <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
-                        <option value="">Select a car color</option>
-                    </select>
-                </div>
+                        <div class="form-group">
+                            <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
+                                <option value="">Select a car color</option>
+                            </select>
+                        </div>
 
-                <div class="form-group">
-                    <label asp-for="Region"></label>
-                    <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
-                        <option value="">Select a region</option>
-                    </select>
-                </div>
-
-                <div class="form-group d-flex flex-column justify-content-center col-2">
-                    <input asp-for="YearRange" id="yearRangeSlider" class="multi-range" type="text" data-slider-min="1900" data-slider-max="2024" data-slider-step="1" data-slider-value="[1901,2024]" />
-
-                    <div class="d-flex justify-content-between">
-                        <span id="minYearLabel" class="slider-label"></span>
-                        <span id="maxYearLabel" class="slider-label"></span>
+                        <div class="form-group">
+                            <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
+                                <option value="">Select a region</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+                <div class="row mt-4">
+                    <div class="form-group d-flex flex-column justify-content-center col-2 me-5" id="yearRangeSliderGroup">
+                        <input asp-for="YearRange" id="yearRangeSlider" class="multi-range" type="text" data-slider-min="1901" data-slider-max="2024" data-slider-step="1" data-slider-value="[1901,2024]" />
 
-                <input asp-for="MinYear" id="MinYear" type="hidden" />
-                <input asp-for="MaxYear" id="MaxYear" type="hidden" />
-
-
-                <div class="form-group">
-                    <label asp-for="Mileage"></label>
-                    <input asp-for="Mileage" class="form-control" />
-                </div>
-
-                <div class="form-group d-flex flex-column justify-content-center col-2">
-                    <input asp-for="PriceRange" id="priceRangeSlider" class="multi-range" type="text" data-slider-min="0" data-slider-max="100000" data-slider-step="500" data-slider-value="[0,100000]" />
-
-                    <div class="d-flex justify-content-between">
-                        <span id="minPriceLabel" class="slider-label"></span>
-                        <span id="maxPriceLabel" class="slider-label"></span>
+                        <div class="d-flex justify-content-between">
+                            <span id="minYearLabel" class="slider-label"></span>
+                            <span id="maxYearLabel" class="slider-label"></span>
+                        </div>
                     </div>
-                </div>
 
-                <input asp-for="MinPrice" id="MinPrice" type="hidden" />
-                <input asp-for="MaxPrice" id="MaxPrice" type="hidden" />
+                    <input asp-for="MinYear" id="MinYear" type="hidden" />
+                    <input asp-for="MaxYear" id="MaxYear" type="hidden" />
 
-                <div class="form-group">
-                    <label for="orderBy">Order By</label>
-                    <select id="orderBy" name="orderBy" class="form-control">
-                        <option value="">Default</option>
-                        <option value="PriceAsc">Price Ascending</option>
-                        <option value="PriceDesc">Price Descending</option>
-                        <option value="MileageAsc">Mileage Ascending</option>
-                        <option value="MileageDesc">Mileage Descending</option>
-                    </select>
+                    <div class="form-group d-flex flex-column justify-content-center col-2" id="priceRangeSliderGroup">
+                        <input asp-for="PriceRange" id="priceRangeSlider" class="multi-range" type="text" data-slider-min="0" data-slider-max="100000" data-slider-step="500" data-slider-value="[0,100000]" />
+
+                        <div class="d-flex justify-content-between">
+                            <span id="minPriceLabel" class="slider-label"></span>
+                            <span id="maxPriceLabel" class="slider-label"></span>
+                        </div>
+                    </div>
+
+                    <input asp-for="MinPrice" id="MinPrice" type="hidden" />
+                    <input asp-for="MaxPrice" id="MaxPrice" type="hidden" />
                 </div>
             </div>
         </div>
-    </form>
+        <div class="form-group d-flex justify-content-end">
+            <div>
+                <label for="orderBy">Order By</label>
+                <select asp-for="OrderBy" id="orderBy" name="orderBy" class="form-control">
+                    <option value="">Default</option>
+                    <option value="PriceAsc">Price Ascending</option>
+                    <option value="PriceDesc">Price Descending</option>
+                    <option value="MileageAsc">Mileage Ascending</option>
+                    <option value="MileageDesc">Mileage Descending</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container">
     @if (ViewBag.SearchResults != null && ViewBag.SearchResults.Count > 0)
     {
         <h3>Search Results</h3>
@@ -139,78 +143,68 @@
                             <h3 class="card-title">@car.Model.Name</h3>
 
                             <!-- Car Details with Icons -->
-                            <div class="card-text d-flex justify-content-between">
-                                <h5>@car.Price лв.</h5>
-                                <div class="d-flex">
-                                    <p class="pe-2">@car.Mileage</p>
-                                    <p class="pe-2">@car.EngineType</p>
-                                    <p class="pe-2">@car.TransmissionType</p>
+                            <div class="card-text d-flex flex-column justify-content-between">
+                                <h5><script>document.write(parseFloat(@car.Price).toLocaleString('en-US'))</script> лв.</h5>
+                                <div class="d-flex gap-2 pt-3 border-top">
+                                    <div class="d-flex gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20" height="20"><path d="M256 32H181.2c-27.1 0-51.3 17.1-60.3 42.6L3.1 407.2C1.1 413 0 419.2 0 425.4C0 455.5 24.5 480 54.6 480H256V416c0-17.7 14.3-32 32-32s32 14.3 32 32v64H521.4c30.2 0 54.6-24.5 54.6-54.6c0-6.2-1.1-12.4-3.1-18.2L455.1 74.6C446 49.1 421.9 32 394.8 32H320V96c0 17.7-14.3 32-32 32s-32-14.3-32-32V32zm64 192v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32s32 14.3 32 32z" /></svg>
+                                        <p class="pe-2">@car.Mileage</p>
+                                    </div>
+                                    <div class="d-flex gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20"><path d="M32 64C32 28.7 60.7 0 96 0H256c35.3 0 64 28.7 64 64V256h8c48.6 0 88 39.4 88 88v32c0 13.3 10.7 24 24 24s24-10.7 24-24V222c-27.6-7.1-48-32.2-48-62V96L384 64c-8.8-8.8-8.8-23.2 0-32s23.2-8.8 32 0l77.3 77.3c12 12 18.7 28.3 18.7 45.3V168v24 32V376c0 39.8-32.2 72-72 72s-72-32.2-72-72V344c0-22.1-17.9-40-40-40h-8V448c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32V64zM96 80v96c0 8.8 7.2 16 16 16H240c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16H112c-8.8 0-16 7.2-16 16z" /></svg>
+                                        <p class="pe-2">@car.EngineType</p>
+                                    </div>
+                                    <div class="d-flex gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125" width="20" height="20"><path d="M80,5c-5.5,0-10,4.5-10,10c0,3.7,2,6.9,5,8.7V45H55V23.7c3-1.7,5-5,5-8.7c0-5.5-4.5-10-10-10S40,9.5,40,15  c0,3.7,2,6.9,5,8.7V45H25V23.7c3-1.7,5-5,5-8.7c0-5.5-4.5-10-10-10S10,9.5,10,15c0,3.7,2,6.9,5,8.7v52.7c-3,1.7-5,5-5,8.7  c0,5.5,4.5,10,10,10s10-4.5,10-10c0-3.7-2-6.9-5-8.7V55h20v21.3c-3,1.7-5,5-5,8.7c0,5.5,4.5,10,10,10s10-4.5,10-10  c0-3.7-2-6.9-5-8.7V55h30V23.7c3-1.7,5-5,5-8.7C90,9.5,85.5,5,80,5z" /></svg>
+                                        <p class="pe-2">@car.TransmissionType</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                @* <div class="card">
-        <img src="@((car.Photos.Count > 0) ? car.Photos[0].Url : "placeholder-url.jpg")" class="card-img-top" alt="Car Photo">
-        <div class="card-body">
-        <h5 class="card-title">@car.Model.Name</h5>
-        <p class="card-text">
-        <strong>Brand:</strong> @car.Brand.Name<br>
-        <strong>Engine Type:</strong> @car.EngineType<br>
-        <strong>Transmission Type:</strong> @car.TransmissionType<br>
-        <strong>Car Color:</strong> @car.CarColor.Name<br>
-        <strong>Region:</strong> @car.Region<br>
-        <strong>Year:</strong> @car.Year<br>
-        <strong>Mileage:</strong> @car.Mileage<br>
-        <strong>Power:</strong> @car.Power<br>
-        <strong>Car Type:</strong> @car.CarType<br>
-        <strong>Condition:</strong> @car.Condition<br>
-        <strong>Price:</strong> @car.Price
-        </p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#carGalleryModal-@car.CarId">
-        View Photos
-        </button>
-        </div>
-        </div>
-
-        <!-- Modal for Car Gallery -->
-        <div class="modal fade" id="carGalleryModal-@car.CarId" tabindex="-1" role="dialog" aria-labelledby="carGalleryModalLabel-@car.CarId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="carGalleryModalLabel-@car.CarId">Car Photos</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-        <!-- Display photos in the modal -->
-        @foreach (var photo in car.Photos)
-        {
-        <img src="@photo.Url" alt="Car Photo" class="img-fluid" />
-        }
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-        </div>
-        </div> *@
             }
         </div>
         <form asp-action="Search" asp-controller="Car" method="post" id="paginationForm">
             <input type="hidden" name="pageNumber" id="pageNumberInput" value="@(ViewBag.CurrentPage)" />
             <input type="hidden" name="pageSize" value="@(ViewBag.PageSize)" />
-            <ul class="pagination">
-                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(1)">First</a></li>
-                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage - 1))">Previous</a></li>
-                <li class="page-item"><span class="page-link">Page @(ViewBag.CurrentPage) of @(ViewBag.TotalPages)</span></li>
-                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage + 1))">Next</a></li>
-                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")"><a class="page-link" href="javascript:void(0);" onclick="changePage(@(ViewBag.TotalPages))">Last</a></li>
-            </ul>
-        </form>
 
+            <input asp-for="Condition" type="hidden" />
+            <input asp-for="BrandId" type="hidden" />
+            <input asp-for="ModelId" type="hidden" />
+            <input asp-for="CarType" type="hidden" />
+            <input asp-for="EngineType" type="hidden" />
+            <input asp-for="TransmissionType" type="hidden" />
+            <input asp-for="Region" type="hidden" />
+            <input asp-for="CarColorId" type="hidden" />
+            <input asp-for="MinYear" id="MinYear" type="hidden" />
+            <input asp-for="MaxYear" id="MaxYear" type="hidden" />
+            <input asp-for="MinPrice" id="MinPrice" type="hidden" />
+            <input asp-for="MaxPrice" id="MaxPrice" type="hidden" />
+            <input asp-for="OrderBy" type="hidden" />
+
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="pagination d-flex gap-2">
+                    <div class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")" id="paginationPrevious" style="@(ViewBag.CurrentPage == 1 ? "display:none;" : "")">
+                        <a class="page-link border-0" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage - 1))">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pagination d-flex gap-2" id="paginationList">
+                    <!-- Pagination numbers will be generated dynamically here -->
+                </div>
+
+                <div class="pagination d-flex gap-2">
+                    <div class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")" style="@(ViewBag.CurrentPage == ViewBag.TotalPages ? "display:none;" : "")">
+                        <a class="page-link border-0" href="javascript:void(0);" onclick="changePage(@(ViewBag.CurrentPage + 1))">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
     }
     else
     {
@@ -294,41 +288,68 @@
             });
         });
     </script>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous"></script>
 
     <script>
         // Initialize Bootstrap Slider for the price range
-        $('#priceRangeSlider').slider({
-            tooltip: 'hide'
-        }).on('slide', function (ev) {
-            var minPrice = ev.value[0];
-            var maxPrice = ev.value[1];
+        function initializePriceRangeSlider() {
+            $('#priceRangeSlider').slider({
+                tooltip: 'hide'
+            }).on('slide', function (ev) {
+                var minPrice = ev.value[0];
+                var maxPrice = ev.value[1];
 
+                $('#minPriceLabel').text(minPrice);
+                $('#maxPriceLabel').text(maxPrice);
+
+                // Set the values to hidden fields or update your form elements
+                $('#MinPrice').val(minPrice);
+                $('#MaxPrice').val(maxPrice);
+            });
+        }
+
+        // Function to set initial slider values
+        function setInitialPriceSliderValues() {
+            var minPrice = parseInt($('#MinPrice').val());
+            var maxPrice = parseInt($('#MaxPrice').val());
+            var sliderMin = parseInt($('#priceRangeSlider').data('slider-min'));
+            var sliderMax = parseInt($('#priceRangeSlider').data('slider-max'));
+
+            // Calculate slider handle positions in percentages
+            var minHandlePosition = ((minPrice - sliderMin) / (sliderMax - sliderMin)) * 100;
+            var maxHandlePosition = ((maxPrice - sliderMin) / (sliderMax - sliderMin)) * 100;
+
+            // Set slider handle positions
+            $('#priceRangeSliderGroup').find('.slider-handle').css('left', minHandlePosition + '%');
+            $('#priceRangeSliderGroup').find('.max-slider-handle').css('left', maxHandlePosition + '%');
+
+            // Calculate percentage for min and max values
+            var range = $('#priceRangeSlider').data('slider-max') - $('#priceRangeSlider').data('slider-min');
+            var minPercentage = (minPrice / range) * 100;
+            var maxPercentage = (maxPrice / range) * 100;
+
+            // Update the slider track elements
+            $('#priceRangeSliderGroup').find('.slider-track-low').css('width', minPercentage + '%');
+            $('#priceRangeSliderGroup').find('.slider-selection').css({
+                'left': minPercentage + '%',
+                'width': (maxPercentage - minPercentage) + '%'
+            });
+            $('#priceRangeSliderGroup').find('.slider-track-high').css('width', (100 - maxPercentage) + '%');
+
+            // Update labels
             $('#minPriceLabel').text(minPrice);
             $('#maxPriceLabel').text(maxPrice);
-
-            // Set the values to hidden fields or update your form elements
-            $('#MinPrice').val(minPrice);
-            $('#MaxPrice').val(maxPrice);
-        });
-
-        // Function to set initial label values
-        function setInitialLabels() {
-            var minPrice = $('#priceRangeSlider').data('slider-min');
-            var maxPrice = $('#priceRangeSlider').data('slider-max');
-
-            $('#minPriceLabel').text(minPrice);
-            $('#maxPriceLabel').text(maxPrice);
-
-            // Set the initial values to hidden fields or update your form elements
-            $('#MinPrice').val(minPrice);
-            $('#MaxPrice').val(maxPrice);
         }
 
         // Execute the script on page load
         $(document).ready(function () {
-            setInitialLabels();
+            // Check if the slider has already been initialized
+            if (!$('#priceRangeSlider').hasClass('slider')) {
+                initializePriceRangeSlider();
+            }
+            setInitialPriceSliderValues();
         });
 
         // Handle slide event on the priceRangeSlider
@@ -349,37 +370,63 @@
         });
     </script>
     <script>
-        // Initialize Bootstrap Slider for the year range
-        $('#yearRangeSlider').slider({
-            tooltip: 'hide'
-        }).on('slide', function (ev) {
-            var minYear = ev.value[0];
-            var maxYear = ev.value[1];
+        function initializeYearRangeSlider() {
+            $('#yearRangeSlider').slider({
+                tooltip: 'hide'
+            }).on('slide', function (ev) {
+                var minYear = ev.value[0];
+                var maxYear = ev.value[1];
 
-            $('#minYearLabel').text('Min Year: ' + minYear);
-            $('#maxYearLabel').text('Max Year: ' + maxYear);
+                $('#minYearLabel').text(minYear);
+                $('#maxYearLabel').text(maxYear);
 
-            // Set the values to hidden fields or update your form elements
-            $('#MinYear').val(minYear);
-            $('#MaxYear').val(maxYear);
-        });
+                // Set the values to hidden fields or update your form elements
+                $('#MinYear').val(minYear);
+                $('#MaxYear').val(maxYear);
+            });
+        }
 
-        // Function to set initial label values
-        function setInitialYearLabels() {
-            var minYear = $('#yearRangeSlider').data('slider-min');
-            var maxYear = $('#yearRangeSlider').data('slider-max');
+        // Function to set initial slider values
+        function setInitialYearSliderValues() {
+            var minYear = parseInt($('#MinYear').val()) || $('#yearRangeSlider').data('slider-min');
+            var maxYear = parseInt($('#MaxYear').val()) || $('#yearRangeSlider').data('slider-max');
+            var sliderMin = parseInt($('#yearRangeSlider').data('slider-min'));
+            var sliderMax = parseInt($('#yearRangeSlider').data('slider-max'));
 
-            $('#minYearLabel').text('Min Year: ' + minYear);
-            $('#maxYearLabel').text('Max Year: ' + maxYear);
+            // Calculate slider handle positions in percentages
+            var minHandlePosition = ((minYear - sliderMin) / (sliderMax - sliderMin)) * 100;
+            var maxHandlePosition = ((maxYear - sliderMin) / (sliderMax - sliderMin)) * 100;
 
-            // Set the initial values to hidden fields or update your form elements
-            $('#MinYear').val(minYear);
-            $('#MaxYear').val(maxYear);
+            // Set slider handle positions
+            $('#yearRangeSliderGroup .slider-handle').css('left', minHandlePosition + '%');
+            $('#yearRangeSliderGroup .max-slider-handle').css('left', maxHandlePosition + '%');
+
+            // Calculate percentage for min and max values
+            var range = $('#yearRangeSlider').data('slider-max') - $('#yearRangeSlider').data('slider-min');
+
+            var minPercentage = (minYear / range) * 100;
+            var maxPercentage = (maxYear / range) * 100;
+
+            // Update the slider track elements
+            $('#yearRangeSliderGroup').find('.slider-track-low').css('width', minPercentage + '%');
+            $('#yearRangeSliderGroup').find('.slider-selection').css({
+                'left': minPercentage + '%',
+                'width': (maxPercentage - minPercentage) + '%'
+            });
+            $('#yearRangeSliderGroup').find('.slider-track-high').css('width', (100 - maxPercentage) + '%');
+
+            // Update labels
+            $('#minYearLabel').text(minYear);
+            $('#maxYearLabel').text(maxYear);
         }
 
         // Execute the script on page load
         $(document).ready(function () {
-            setInitialYearLabels();
+            // Check if the slider has already been initialized
+            if (!$('#yearRangeSlider').hasClass('slider')) {
+                initializeYearRangeSlider();
+            }
+            setInitialYearSliderValues();
         });
 
         // Handle slide event on the yearRangeSlider
@@ -387,17 +434,43 @@
             var minYear = ev.value[0];
             var maxYear = ev.value[1];
 
-            $('#minYearLabel').text('Min Year: ' + minYear);
-            $('#maxYearLabel').text('Max Year: ' + maxYear);
+            $('#minYearLabel').text(minYear);
+            $('#maxYearLabel').text(maxYear);
 
             // Set the values to hidden fields or update your form elements
             $('#MinYear').val(minYear);
             $('#MaxYear').val(maxYear);
         });
+    </script>
 
-        $('#searchForm').submit(function () {
-            console.log('Submitting form with MinYear:', $('#MinYear').val(), 'and MaxYear:', $('#MaxYear').val());
-        });
+
+    <script>
+        function generatePaginationNumbers(currentPage, totalPages) {
+            var paginationList = document.getElementById("paginationList");
+            paginationList.innerHTML = ""; // Clear existing pagination items
+            var startPage = Math.max(1, currentPage - 1);
+            var endPage = Math.min(totalPages, startPage + 2);
+
+            // If on the last page, adjust startPage and endPage accordingly
+            if (endPage === totalPages) {
+                startPage = Math.max(1, endPage - 2); // Ensure to show 3 pages
+            }
+
+            for (var i = startPage; i <= endPage; i++) {
+                var listItem = document.createElement("li");
+                listItem.className = "page-item " + (i === currentPage ? "active" : "");
+                var link = document.createElement("a");
+                link.className = "page-link btn btn-primary rounded-circle";
+                link.href = "javascript:void(0);";
+                link.textContent = i;
+                link.setAttribute("onclick", "changePage(" + i + ")");
+                listItem.appendChild(link);
+                paginationList.appendChild(listItem);
+            }
+        }
+
+        // Call the function initially
+        generatePaginationNumbers(@(ViewBag.CurrentPage), @(ViewBag.TotalPages));
     </script>
 
 }

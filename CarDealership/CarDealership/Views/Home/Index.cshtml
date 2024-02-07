@@ -11,29 +11,27 @@
 
 <div class="row d-flex align-content-center justify-content-center vw-100" style="height:80vh;background-image:url('/Images/BackgroundIndex.jpg'); background-size: cover; background-position: center;  border-radius: 0 0 20% 20%;">
 
-   
+
     <div class="d-flex flex-column align-items-center mb-4">
-        <h2 class="fs-1 fw-bolder text-white">Search Less. Live More.</h2>
-        <h6 class="text-white">We make finding the right car simple </h6>
+        <h2 class="fs-1 fw-bolder text-white">Търси по-малко. Живей повече.</h2>
+        <h5 class="text-white">Намери желаната кола с лекота. </h5>
     </div>
 
     <form method="post" asp-action="Search" asp-controller="Car" id="searchForm" class="form-inline d-flex justify-content-between align-items-center py-3 w-75 rounded bg-white">
         <div class="form-group d-flex justify-content-center">
-            <label class="mr-2"></label>
             <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control mr-2">
                 <option value="">Select a condition</option>
             </select>
         </div>
 
         <div class="form-group d-flex justify-content-center">
-            <label class="mr-2"></label>
             <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands ?? new List<SelectListItem>(), "BrandId", "Name"))" class="form-control mr-2" id="brandDropdown">
                 <option value="">Select a brand</option>
             </select>
         </div>
 
         <div class="form-group d-flex justify-content-center">
-            <label class="mr-2"></label>
+
             <select asp-for="ModelId" class="form-control mr-2" id="modelDropdown">
                 <option value="">Select a model</option>
             </select>
@@ -50,7 +48,6 @@
 
         <input asp-for="MinPrice" id="MinPrice" type="hidden" />
         <input asp-for="MaxPrice" id="MaxPrice" type="hidden" />
-
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary px-4" id="searchButton" style="background-color:#08c2df; border:none; transition: background-color 0.3s;">

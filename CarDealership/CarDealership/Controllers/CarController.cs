@@ -114,7 +114,7 @@ namespace CarDealership.Controllers
         //Search Cars
         [HttpPost]
         [Route("Car/Search")]
-        public IActionResult Search(SearchViewModel search, string orderBy, int? pageSize, int? pageNumber)
+        public IActionResult Search(SearchViewModel search, int? pageSize, int? pageNumber)
         {
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
@@ -126,6 +126,7 @@ namespace CarDealership.Controllers
                         .Include(c => c.Model)
                         .Include(c => c.Photos).ToList()
                         .AsQueryable();
+
 
             // Filter by brand
             if (search.BrandId.HasValue)
@@ -209,7 +210,7 @@ namespace CarDealership.Controllers
             }
 
             // Apply sorting based on the orderBy parameter
-            switch (orderBy)
+            switch (search.OrderBy)
             {
                 case "PriceAsc":
                     query = query.OrderBy(c => c.Price);
@@ -237,7 +238,7 @@ namespace CarDealership.Controllers
             var results = query.ToList();
 
             // Pagination
-            pageSize = pageSize ?? 5; // Default page size is 3
+            pageSize = pageSize ?? 6; // Default page size is 3
             pageNumber = pageNumber ?? 1;
 
             var paginatedResults = results
@@ -253,7 +254,7 @@ namespace CarDealership.Controllers
 
             ViewBag.SelectedModelName = selectedModelName;
 
-            return View("Search");
+            return View(search);
         }
 
         //Car Details

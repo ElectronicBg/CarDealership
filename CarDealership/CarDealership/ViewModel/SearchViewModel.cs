@@ -21,6 +21,7 @@ namespace CarDealership.ViewModel
         public decimal? MinPrice { get; set; }
         public decimal? MaxPrice { get; set; }
         public List<Photo> Photos { get; set; }
+        public string OrderBy { get; set; }
         public string PriceRange => $"{MinPrice:C} - {MaxPrice:C}";
         public string YearRange => $"{MinYear:C} - {MaxYear:C}";
     }
