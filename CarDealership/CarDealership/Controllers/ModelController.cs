@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using CarDealership.Data;
 using CarDealership.Models;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize(Roles = "Admin")]
 public class ModelController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -10,6 +12,13 @@ public class ModelController : Controller
     public ModelController(ApplicationDbContext context)
     {
         _context = context;
+    }
+
+    // GET: Model/Index
+    public IActionResult Index()
+    {
+        var models = _context.Models.Include(m => m.Brand).ToList();
+        return View(models);
     }
 
     // GET: Model/Create
@@ -43,7 +52,9 @@ public class ModelController : Controller
             return NotFound();
         }
 
-        var model = _context.Models.Include(m => m.Brand).FirstOrDefault(m => m.ModelId == id);
+        var model = _context.Models
+            .Include(m => m.Brand)
+            .FirstOrDefault(m => m.ModelId == id);
 
         if (model == null)
         {
@@ -92,12 +103,5 @@ public class ModelController : Controller
     private bool ModelExists(int id)
     {
         return _context.Models.Any(e => e.ModelId == id);
-    }
-
-    // GET: Model/Index
-    public IActionResult Index()
-    {
-        var models = _context.Models.Include(m => m.Brand).ToList();
-        return View(models);
     }
 }

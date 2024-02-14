@@ -3,29 +3,31 @@
     ViewData["Title"] = "Models List";
 }
 
-<h2>Models List</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Brand</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var carModel in Model)
-        {
+<div class="container">
+    <h2>Models List</h2>
+    <table class="table">
+        <thead>
             <tr>
-                <td>@carModel.ModelId</td>
-                <td>@carModel.Name</td>
-                <td>@carModel.Brand.Name</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@carModel.ModelId" class="btn btn-primary">Edit</a>
-                </td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var carModel in Model)
+            {
+                <tr>
+                    <td>@carModel.ModelId</td>
+                    <td>@carModel.Name</td>
+                    <td>@carModel.Brand.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@carModel.ModelId" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<a asp-action="Create" class="btn btn-success">Add New Model</a>
+    <a asp-action="Create" class="btn btn-success">Add New Model</a>
+</div>

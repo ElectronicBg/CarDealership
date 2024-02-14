@@ -1,8 +1,10 @@
 ﻿using CarDealership.Data;
 using CarDealership.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize(Roles = "Admin")]
 public class PhotoController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -60,25 +62,6 @@ public class PhotoController : Controller
         return BadRequest("No photo URLs provided");
     }
 
-    // GET: Photo/Edit/5
-    public IActionResult Edit(int? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var photo = _context.Photos.Include(p => p.Car).FirstOrDefault(p => p.PhotoId == id);
-
-        if (photo == null)
-        {
-            return NotFound();
-        }
-
-        ViewBag.Cars = _context.Cars.ToList();
-        return View(photo);
-    }
-
     // POST: Photo/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -116,10 +99,10 @@ public class PhotoController : Controller
 
     // POST: Photo/Delete/5
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Delete(int id)
+    [Route("Photo/Delete/{photoId}")]
+    public IActionResult Delete(int photoId)  
     {
-        var photo = _context.Photos.Find(id);
+        var photo = _context.Photos.Find(photoId);
 
         if (photo == null)
         {
@@ -128,7 +111,8 @@ public class PhotoController : Controller
 
         _context.Photos.Remove(photo);
         _context.SaveChanges();
-        return RedirectToAction(nameof(Index));
+
+        return Ok();
     }
 
     private bool PhotoExists(int id)

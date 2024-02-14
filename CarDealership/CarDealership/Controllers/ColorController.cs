@@ -13,6 +13,12 @@ public class ColorController : Controller
     {
         _context = context;
     }
+    // GET: Color/Index
+    public IActionResult Index()
+    {
+        var colors = _context.CarColors.ToList();
+        return View(colors);
+    }
 
     // GET: Color/Create
     public IActionResult Create()
@@ -89,12 +95,5 @@ public class ColorController : Controller
     private bool ColorExists(int id)
     {
         return _context.CarColors.Any(e => e.CarColorId == id);
-    }
-
-    // GET: Color/Index
-    public IActionResult Index()
-    {
-        var colors = _context.CarColors.ToList();
-        return View(colors);
     }
 }

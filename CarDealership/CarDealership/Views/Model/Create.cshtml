@@ -3,23 +3,25 @@
     ViewData["Title"] = "Add Model";
 }
 
-<h2>Add Model</h2>
-<form method="post" asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+<div class="container">
+    <h2>Add Model</h2>
+    <form method="post" asp-action="Create">
+        <div class="form-group">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="BrandId" class="form-label"></label>
-        <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control">
-            <option value="">Select a brand</option>
-        </select>
-        <span asp-validation-for="BrandId" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="BrandId" class="form-label"></label>
+            <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control">
+                <option value="">Select a brand</option>
+            </select>
+            <span asp-validation-for="BrandId" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Add Model</button>
-</form>
+        <button type="submit" class="btn btn-primary">Add Model</button>
+    </form>
 
-<a asp-action="Index" class="btn btn-secondary">Back to Models List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to Models List</a>
+</div>

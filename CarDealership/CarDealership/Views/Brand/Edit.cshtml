@@ -3,17 +3,19 @@
     ViewData["Title"] = "Edit Brand";
 }
 
-<h2>Edit Brand</h2>
-<form method="post" asp-action="Edit">
-    <input type="hidden" asp-for="BrandId" />
+<div class="container">
+    <h2>Edit Brand</h2>
+    <form method="post" asp-action="Edit">
+        <input type="hidden" asp-for="BrandId" />
 
-    <div class="form-group">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Update Brand</button>
-</form>
+        <button type="submit" class="btn btn-primary">Update Brand</button>
+    </form>
 
-<a asp-action="Index" class="btn btn-secondary">Back to Brands List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to Brands List</a>
+</div>

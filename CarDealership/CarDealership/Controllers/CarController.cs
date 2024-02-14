@@ -16,13 +16,15 @@ namespace CarDealership.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index(int? pageSize, int? pageNumber)
         {
             var cars = _context.Cars
                 .Include(c => c.Brand)
+                .Include(c=>c.Model)
                 .Include(c => c.CarColor)
                 .Include(c => c.Photos)
-                .AsQueryable(); // Convert to IQueryable for dynamic query composition
+                .AsQueryable(); 
 
             // Pagination
             pageSize = pageSize ?? 6; // Default page size is 6
@@ -41,7 +43,9 @@ namespace CarDealership.Controllers
         }
 
 
+
         // Add Car
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewBag.Brands = _context.Brands.ToList();
@@ -278,6 +282,7 @@ namespace CarDealership.Controllers
             return View(car);
         }
 
+        [Authorize(Roles = "Admin")]
         // Update Car
         public IActionResult Edit(int id)
         {

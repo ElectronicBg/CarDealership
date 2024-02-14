@@ -6,7 +6,7 @@ namespace CarDealership.Models
     public class Photo
     {
         [Key]
-        public int PhotoId { get; set; }
+        public int PhotoId { get; set; } //change the PhotoId to Id
 
         [ForeignKey("CarId")]
         public int CarId { get; set; }

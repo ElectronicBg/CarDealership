@@ -3,27 +3,29 @@
     ViewData["Title"] = "Brands List";
 }
 
-<h2>Brands List</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var brand in Model)
-        {
+<div class="container">
+    <h2>Brands List</h2>
+    <table class="table">
+        <thead>
             <tr>
-                <td>@brand.BrandId</td>
-                <td>@brand.Name</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@brand.BrandId" class="btn btn-primary">Edit</a>
-                </td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var brand in Model)
+            {
+                <tr>
+                    <td>@brand.BrandId</td>
+                    <td>@brand.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@brand.BrandId" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<a asp-action="Create" class="btn btn-success">Add New Brand</a>
+    <a asp-action="Create" class="btn btn-success">Add New Brand</a>
+</div>
