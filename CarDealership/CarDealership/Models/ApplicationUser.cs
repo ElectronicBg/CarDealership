@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Cinema.Models
+namespace CarDealership.Models
 {
     public class ApplicationUser:IdentityUser
     {

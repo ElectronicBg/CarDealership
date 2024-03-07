@@ -1,9 +1,6 @@
-﻿using CarDealership.Models.Enums;
-using CarDealership.Models;
+﻿using CarDealership.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
-using Cinema.Models;
 
 namespace CarDealership.Data
 {

@@ -1,6 +1,5 @@
-﻿using Cinema.Models;
+﻿using CarDealership.Models;
 using Microsoft.AspNetCore.Identity;
-using System.Data;
 
 namespace CarDealership.Data
 {
@@ -11,6 +10,7 @@ namespace CarDealership.Data
             //Seed Roles
             var userManager = service.GetService<UserManager<ApplicationUser>>();
             var roleManager = service.GetService<RoleManager<IdentityRole>>();
+
             await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
 
             // creating admin
