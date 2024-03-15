@@ -42,8 +42,6 @@ namespace CarDealership.Controllers
             return View(paginatedCars);
         }
 
-
-
         // Add Car
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
@@ -118,7 +116,7 @@ namespace CarDealership.Controllers
         //Search Cars
         [HttpPost]
         [Route("Car/Search")]
-        public IActionResult Search(SearchViewModel search, int? pageSize, int? pageNumber)
+        public IActionResult Search(SearchViewModel search, int? pageNumber)
         {
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
@@ -242,19 +240,27 @@ namespace CarDealership.Controllers
             var results = query.ToList();
 
             // Pagination
-            pageSize = pageSize ?? 6; // Default page size is 3
+            if (search.PageSize == 0)
+            {
+                search.PageSize = 5;
+            }
+            else
+            {
+                search.PageSize = search.PageSize; //?? 6; // Default page size is 3
+            } 
+            
             pageNumber = pageNumber ?? 1;
 
             var paginatedResults = results
-                .Skip((pageNumber.Value - 1) * pageSize.Value)
-                .Take(pageSize.Value)
+                .Skip((pageNumber.Value - 1) * search.PageSize)
+                .Take(search.PageSize)
                 .ToList();
 
             // Set pagination-related ViewBag values
             ViewBag.SearchResults = paginatedResults;
-            ViewBag.PageSize = pageSize.Value;
+            ViewBag.PageSize = search.PageSize;
             ViewBag.CurrentPage = pageNumber.Value;
-            ViewBag.TotalPages = (int)Math.Ceiling((double)results.Count() / pageSize.Value);
+            ViewBag.TotalPages = (int)Math.Ceiling((double)results.Count() / search.PageSize);
 
             ViewBag.SelectedModelName = selectedModelName;
 
@@ -332,15 +338,9 @@ namespace CarDealership.Controllers
                     return NotFound();
                 }
 
-                // Update the properties of the existing car with the values from the editedCar
                 _context.Entry(existingCar).CurrentValues.SetValues(editedCar);
-
-                // Update any relationships if needed
-                // For example, you may need to update the Brand, Model, CarColor, etc.
-
                 _context.SaveChanges();
 
-                // Redirect to the Index action of the Car controller
                 return RedirectToAction("Index");
             }
 
