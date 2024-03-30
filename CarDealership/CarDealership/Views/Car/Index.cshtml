@@ -29,12 +29,12 @@
                             <strong>Тип на скоростната кутия:</strong> @EnumHelper.GetDisplayName(car.TransmissionType)<br>
                             <strong>Цвят на колата:</strong> @car.CarColor.Name<br>
                             <strong>Регион:</strong> @EnumHelper.GetDisplayName(car.Region)<br>
-                            <strong>Година:</strong> @car.Year<br>
-                            <strong>Пробег:</strong> @car.Mileage км<br>
+                            <strong>Година:</strong> @car.Year г.<br>
+                            <strong>Пробег:</strong> @car.Mileage км.<br>
                             <strong>Мощност:</strong> @car.Power<br>
                             <strong>Тип на колата:</strong> @EnumHelper.GetDisplayName(car.CarType)<br>
                             <strong>Състояние:</strong> @EnumHelper.GetDisplayName(car.Condition)<br>
-                            <strong>Цена:</strong> @car.Price
+                            <strong>Цена:</strong> @car.Price лв.
                         </p>
 
                         <div class="d-flex justify-content-between ">
@@ -138,7 +138,7 @@
                 var listItem = document.createElement("li");
                 listItem.className = "page-item " + (i === currentPage ? "active" : "");
                 var link = document.createElement("a");
-                link.className = "page-link btn btn-primary rounded-circle";
+                link.className = "page-link btn rounded-circle";
                 link.href = "javascript:void(0);";
                 link.textContent = i;
                 link.setAttribute("onclick", "changePage(" + i + ")");

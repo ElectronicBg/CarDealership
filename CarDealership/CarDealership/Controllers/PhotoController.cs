@@ -17,8 +17,12 @@ public class PhotoController : Controller
     // GET: Photo/Index
     public IActionResult Index()
     {
-        var photos = _context.Photos.Include(p => p.Car).ToList();
-        return View(photos);
+        var photosByCar = _context.Photos
+       .OrderBy(p => p.CarId) // Ensure photos are sorted by CarId before grouping
+       .ToList()
+       .GroupBy(p => p.CarId); // Group photos by CarId
+
+        return View(photosByCar);
     }
 
     // GET: Photo/Create

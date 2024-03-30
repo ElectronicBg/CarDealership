@@ -1,21 +1,23 @@
 ﻿@model CarDealership.Models.Photo
 
-<h2>Add Photo</h2>
+<div class="container" style="min-height:75vh;">
+    <h2>Add Photo</h2>
 
-<form asp-action="Create" asp-controller="Photo" method="post">
-    <div class="form-group">
-        <label asp-for="Url" class="control-label"></label>
-        <input asp-for="Url" class="form-control" />
-        <span asp-validation-for="Url" class="text-danger"></span>
-    </div>
+    <form asp-action="Create" asp-controller="Photo" method="post">
+        <div class="form-group">
+            <label asp-for="Url" class="control-label">Линк към Снимка</label>
+            <input asp-for="Url" class="form-control" />
+            <span asp-validation-for="Url" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="CarId" class="control-label"></label>
-        <input asp-for="CarId" class="form-control" />
-        <span asp-validation-for="CarId" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="CarId" class="control-label">Id на колата</label>
+            <input asp-for="CarId" class="form-control" />
+            <span asp-validation-for="CarId" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Add Photo</button>
-</form>
+        <button type="submit" class="btn btn-primary mt-3">Създай Снимката</button>
+    </form>
 
-<a asp-action="Index" class="btn btn-secondary">Back to Photos List</a>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Върни се към списъка със Снимки</a>
+</div>

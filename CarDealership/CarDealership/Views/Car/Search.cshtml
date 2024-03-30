@@ -14,24 +14,24 @@
     <div class="col-12 " style="background-color:#0A2357">
         <div class="container d-flex justify-content-around py-3">
             <div class="form-group">
-                <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
+                <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-select">
                     <option value="">Избери Състояние</option>
                 </select>
             </div>
             <div>
-                <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
+                <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-select" id="brandDropdown">
                     <option value="">Избери Марка</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <select asp-for="ModelId" class="form-control" id="modelDropdown">
+                <select asp-for="ModelId" class="form-select" id="modelDropdown">
                     <option value="">Избери Модел</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
+                <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-select">
                     <option value="">Избери Тип на купето</option>
                 </select>
             </div>
@@ -59,25 +59,25 @@
                 <div class="row">
                     <div class="d-flex flex-wrap gap-3 mx-6">
                         <div class="form-group">
-                            <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
+                            <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-select">
                                 <option value="">Избери тип на Двигателя</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
+                            <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-select">
                                 <option value="">Избери тип на Трансмисията</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
+                            <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-select">
                                 <option value="">Избери Цвят</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
+                            <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-select">
                                 <option value="">Избери Област</option>
                             </select>
                         </div>
@@ -133,7 +133,7 @@
         </div>
     </div>
 </form>
-<div class="container">
+<div class="container" style="min-height:60vh;">
     @if (ViewBag.SearchResults != null && ViewBag.SearchResults.Count > 0)
     {
         <h3>Резултати</h3>
@@ -158,7 +158,7 @@
                                 <div class="d-flex gap-2 pt-3 border-top">
                                     <div class="d-flex justify-content-center gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20" height="20"><path d="M256 32H181.2c-27.1 0-51.3 17.1-60.3 42.6L3.1 407.2C1.1 413 0 419.2 0 425.4C0 455.5 24.5 480 54.6 480H256V416c0-17.7 14.3-32 32-32s32 14.3 32 32v64H521.4c30.2 0 54.6-24.5 54.6-54.6c0-6.2-1.1-12.4-3.1-18.2L455.1 74.6C446 49.1 421.9 32 394.8 32H320V96c0 17.7-14.3 32-32 32s-32-14.3-32-32V32zm64 192v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32s32 14.3 32 32z" /></svg>
-                                        <p class="pe-2">@car.Mileage</p>
+                                        <p class="pe-2">@car.Mileage км.</p>
                                     </div>
                                     <div class="d-flex justify-content-center gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20"><path d="M32 64C32 28.7 60.7 0 96 0H256c35.3 0 64 28.7 64 64V256h8c48.6 0 88 39.4 88 88v32c0 13.3 10.7 24 24 24s24-10.7 24-24V222c-27.6-7.1-48-32.2-48-62V96L384 64c-8.8-8.8-8.8-23.2 0-32s23.2-8.8 32 0l77.3 77.3c12 12 18.7 28.3 18.7 45.3V168v24 32V376c0 39.8-32.2 72-72 72s-72-32.2-72-72V344c0-22.1-17.9-40-40-40h-8V448c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32V64zM96 80v96c0 8.8 7.2 16 16 16H240c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16H112c-8.8 0-16 7.2-16 16z" /></svg>
@@ -218,7 +218,7 @@
     }
     else
     {
-        <p>No results found.</p>
+        <h1>Няма намерени резултати!</h1>
     }
 </div>
 
@@ -476,7 +476,7 @@
                 var listItem = document.createElement("li");
                 listItem.className = "page-item " + (i === currentPage ? "active" : "");
                 var link = document.createElement("a");
-                link.className = "page-link btn btn-primary rounded-circle";
+                link.className = "page-link btn  rounded-circle";
                 link.href = "javascript:void(0);";
                 link.textContent = i;
                 link.setAttribute("onclick", "changePage(" + i + ")");

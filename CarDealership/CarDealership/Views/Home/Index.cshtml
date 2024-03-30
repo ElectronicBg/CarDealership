@@ -19,20 +19,20 @@
 
     <form method="post" asp-action="Search" asp-controller="Car" id="searchForm" class="form-inline d-flex justify-content-between align-items-center py-3 w-75 rounded bg-white">
         <div class="form-group d-flex justify-content-center">
-            <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control mr-2">
+            <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-select mr-2">
                 <option value="">Избери Състояние</option>
             </select>
         </div>
 
         <div class="form-group d-flex justify-content-center">
-            <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands ?? new List<SelectListItem>(), "BrandId", "Name"))" class="form-control mr-2" id="brandDropdown">
+            <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands ?? new List<SelectListItem>(), "BrandId", "Name"))" class="form-select mr-2" id="brandDropdown">
                 <option value="">Избери Марка</option>
             </select>
         </div>
 
         <div class="form-group d-flex justify-content-center">
 
-            <select asp-for="ModelId" class="form-control mr-2" id="modelDropdown">
+            <select asp-for="ModelId" class="form-select mr-2" id="modelDropdown">
                 <option value="">Избери Модел</option>
             </select>
         </div>
@@ -65,13 +65,13 @@
             <input asp-for="CarType" id="carTypeInput" type="hidden" />
             <div class="btn-group" role="group" aria-label="Car Type Buttons">
                 <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Sedan')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px; background-color: #08c2df; border: none;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/55/55283.png" alt="Sedan" style="max-width: 30px; filter: brightness(0) invert(1);" /> Sedan
+                    <img src="https://cdn-icons-png.flaticon.com/512/55/55283.png" alt="Sedan" style="max-width: 30px; filter: brightness(0) invert(1);" /> Седан
                 </button>
                 <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Hatchback')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px; background-color: #08c2df; border: none;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/55/55308.png" alt="Hatchback" style="max-width: 30px; filter: brightness(0) invert(1);" /> Hatchback
+                    <img src="https://cdn-icons-png.flaticon.com/512/55/55308.png" alt="Hatchback" style="max-width: 30px; filter: brightness(0) invert(1);" /> Хечбек
                 </button>
                 <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('Micro')" style="width: 150px; display: flex; align-items: center; justify-content: center; margin-right: 10px; background-color: #08c2df; border: none;">
-                    <img src="https://cdn-icons-png.flaticon.com/128/9983/9983078.png" alt="Micro" style="max-width: 30px; filter: brightness(0) invert(1); transform: scaleX(-1);" /> Micro
+                    <img src="https://cdn-icons-png.flaticon.com/128/9983/9983078.png" alt="Micro" style="max-width: 30px; filter: brightness(0) invert(1); transform: scaleX(-1);" /> Микро
                 </button>
                 <button type="button" class="btn btn-primary btn-lg rounded d-flex flex-column" onclick="setCarType('SUV')" style="width: 150px; display: flex; align-items: center; justify-content: center; background-color: #08c2df; border: none;">
                     <img src="https://cdn-icons-png.flaticon.com/512/55/55280.png" alt="SUV" style="max-width: 30px; filter: brightness(0) invert(1);" /> SUV
