@@ -17,13 +17,13 @@
         var user = await UserManager.FindByIdAsync(userId);
 
         <li class="nav-item me-3 pe-3 border-end">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @user.Name!</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравейте, @user.Name!</a>
         </li>
 
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link" style="border: 1px solid black; border-radius: 20px; padding: 8px 20px; transition: background-color 0.3s; color:black" onmouseover="this.style.borderColor='transparent';this.style.backgroundColor='#D2042D'; this.style.color='white';" onmouseout="this.style.borderColor='black';this.style.backgroundColor=''; this.style.color='black';">
-                    Logout
+                    Излез
                 </button>
             </form>
         </li>
@@ -32,7 +32,7 @@
     {
         <li class="nav-item">
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" style="border: 1px solid black; border-radius: 20px; padding: 8px 20px; transition: background-color 0.3s;color:black"
-               onmouseover="this.style.borderColor='transparent';this.style.backgroundColor='#08c2df'; this.style.color='white';" onmouseout="this.style.borderColor='black';this.style.backgroundColor=''; this.style.color='black';">Login</a>
+               onmouseover="this.style.borderColor='transparent';this.style.backgroundColor='#08c2df'; this.style.color='white';" onmouseout="this.style.borderColor='black';this.style.backgroundColor=''; this.style.color='black';">Влез</a>
         </li>
 
         @*         <li class="nav-item">

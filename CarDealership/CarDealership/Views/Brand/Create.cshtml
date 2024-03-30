@@ -3,15 +3,15 @@
     ViewData["Title"] = "Add Brand";
 }
 
-<div class="container">
-    <h2>Add Brand</h2>
+<div class="container" style="min-height:75vh;">
+    <h2>Добави Марка</h2>
     <form method="post" asp-action="Create">
         <div class="form-group">
-            <label asp-for="Name" class="form-label"></label>
+            <label asp-for="Name" class="form-label">Име</label>
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary">Add Brand</button>
+        <button type="submit" class="btn btn-primary mt-3">Създай Марка</button>
     </form>
 </div>

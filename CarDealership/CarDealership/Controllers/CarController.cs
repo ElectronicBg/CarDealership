@@ -242,7 +242,7 @@ namespace CarDealership.Controllers
             // Pagination
             if (search.PageSize == 0)
             {
-                search.PageSize = 5;
+                search.PageSize = 6;
             }
             else
             {

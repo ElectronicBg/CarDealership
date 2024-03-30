@@ -20,20 +20,20 @@
     <form method="post" asp-action="Search" asp-controller="Car" id="searchForm" class="form-inline d-flex justify-content-between align-items-center py-3 w-75 rounded bg-white">
         <div class="form-group d-flex justify-content-center">
             <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control mr-2">
-                <option value="">Select a condition</option>
+                <option value="">Избери Състояние</option>
             </select>
         </div>
 
         <div class="form-group d-flex justify-content-center">
             <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands ?? new List<SelectListItem>(), "BrandId", "Name"))" class="form-control mr-2" id="brandDropdown">
-                <option value="">Select a brand</option>
+                <option value="">Избери Марка</option>
             </select>
         </div>
 
         <div class="form-group d-flex justify-content-center">
 
             <select asp-for="ModelId" class="form-control mr-2" id="modelDropdown">
-                <option value="">Select a model</option>
+                <option value="">Избери Модел</option>
             </select>
         </div>
 
@@ -54,7 +54,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" style="fill: white;">
                     <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
                 </svg>
-                Search
+                Търси
             </button>
         </div>
     </form>
@@ -87,7 +87,7 @@
         // Function to fetch and populate models based on the selected brand
         function fetchAndPopulateModels(brandId) {
             // Clear existing options in the model dropdown
-            $('#modelDropdown').html('<option value="">Select a model</option>');
+            $('#modelDropdown').html('<option value="">Избери Модел</option>');
 
             if (brandId) {
                 // Use Url.Action to generate the correct URL

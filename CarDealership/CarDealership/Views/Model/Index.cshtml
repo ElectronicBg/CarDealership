@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Brand</th>
                 <th>Actions</th>
@@ -18,7 +17,6 @@
             @foreach (var carModel in Model)
             {
                 <tr>
-                    <td>@carModel.ModelId</td>
                     <td>@carModel.Name</td>
                     <td>@carModel.Brand.Name</td>
                     <td>

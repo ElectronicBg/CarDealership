@@ -24,3 +24,6 @@ html {
 body {
   margin-bottom: 60px;
 }
+.slider-handle {
+    background-image: linear-gradient(to bottom, #08c2df, #08c2df) !important;
+}

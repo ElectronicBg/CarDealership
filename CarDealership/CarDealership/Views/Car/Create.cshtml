@@ -5,89 +5,89 @@
 }
 
 <div class="container">
-    <h2>Create Car</h2>
+    <h2>Добави Кола</h2>
     <div class="row d-flex">
         <div class="col-6">
             <form method="post" asp-action="Create" asp-controller="Car" id="carForm">
                 <div>
-                    <label asp-for="Brand"></label>
+                    <label asp-for="Brand">Марка</label>
                     <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
-                        <option value="">Select a brand</option>
+                        <option value="">Избери Марка</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="ModelId"></label>
+                    <label asp-for="ModelId">Модел</label>
                     <select asp-for="ModelId" class="form-control" id="modelDropdown">
-                        <option value="">Select a model</option>
+                        <option value="">Избери Модел</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="EngineType"></label>
+                    <label asp-for="EngineType">Тип на Двигателя</label>
                     <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
-                        <option value="">Select an engine type</option>
+                        <option value="">Избери тип на Двигателя</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="TransmissionType"></label>
+                    <label asp-for="TransmissionType">Тип на Трансмисията</label>
                     <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
-                        <option value="">Select a transmission type</option>
+                        <option value="">Избери тип на Трансмисията</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CarColorId"></label>
+                    <label asp-for="CarColorId">Цвят</label>
                     <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
-                        <option value="">Select a car color</option>
+                        <option value="">Избери Цвят на колата</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Region"></label>
+                    <label asp-for="Region">Област</label>
                     <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
-                        <option value="">Select a region</option>
+                        <option value="">Избери Област</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Year"></label>
+                    <label asp-for="Year">Година на Производство</label>
                     <input asp-for="Year" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Mileage"></label>
-                    <input asp-for="Mileage" class="form-control" />
+                    <label asp-for="Mileage">Пробег</label>
+                    <input asp-for="Mileage" class="form-control" type="number" min="0" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Power"></label>
-                    <input asp-for="Power" class="form-control" />
+                    <label asp-for="Power">Мощност на двигателя</label>
+                    <input asp-for="Power" class="form-control" type="number" min="0" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="CarType"></label>
+                    <label asp-for="CarType">Тип на Купето</label>
                     <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
-                        <option value="">Select a car type</option>
+                        <option value="">Избери тип на Купето</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Condition"></label>
+                    <label asp-for="Condition">Състояние</label>
                     <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
-                        <option value="">Select a condition</option>
+                        <option value="">Избери Състояние</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Price"></label>
-                    <input asp-for="Price" class="form-control" />
+                    <label asp-for="Price">Цена</label>
+                    <input asp-for="Price" class="form-control" type="number" min="0" />
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">Create</button>
+                <button type="submit" class="btn btn-primary mt-2">Създай</button>
             </form>
         </div>
         <div class="col-6">
             <div class="form-group">
-                <label asp-for="Photos">Photo URLs</label>
+                <label asp-for="Photos">Линк към Снимка</label>
                 <input asp-for="Photos" id="photoUrl" name="photoUrl" class="form-control" />
                 <span asp-validation-for="Photos" class="text-danger"></span>
-                <small class="form-text text-muted">Enter one photo URL.</small>
+                <small class="form-text text-muted">Въведи линк към снимка</small>
             </div>
 
-            <button type="button" id="addPhotoBtn" class="btn btn-secondary">Add Photo</button>
+            <button type="button" id="addPhotoBtn" class="btn btn-secondary">Добави Снимка</button>
         </div>
     </div>
 </div>
@@ -99,7 +99,7 @@
             var brandId = $(this).val();
 
             // Clear existing options in the model dropdown
-            $('#modelDropdown').html('<option value="">Select a model</option>');
+            $('#modelDropdown').html('<option value="">Избери Модел</option>');
 
             if (brandId) {
                 // Use Url.Action to generate the correct URL

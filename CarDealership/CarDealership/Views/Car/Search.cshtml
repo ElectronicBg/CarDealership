@@ -60,13 +60,13 @@
                     <div class="d-flex flex-wrap gap-3 mx-6">
                         <div class="form-group">
                             <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
-                                <option value="">Избери Тип на двигателя</option>
+                                <option value="">Избери тип на Двигателя</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
-                                <option value="">Избери Тип на трансмисията</option>
+                                <option value="">Избери тип на Трансмисията</option>
                             </select>
                         </div>
 
@@ -115,11 +115,11 @@
             <div>
                 <label for="orderBy">Подреди по</label>
                 <select asp-for="OrderBy" id="orderBy" name="orderBy" class="form-control">
-                    <option value="">Default</option>
-                    <option value="PriceAsc">Price Ascending</option>
-                    <option value="PriceDesc">Price Descending</option>
-                    <option value="MileageAsc">Mileage Ascending</option>
-                    <option value="MileageDesc">Mileage Descending</option>
+                    <option value="">По подразбиране</option>
+                    <option value="PriceAsc">Цена възходящо</option>
+                    <option value="PriceDesc">Цена низходящо</option>
+                    <option value="MileageAsc">Пробег възходящо</option>
+                    <option value="MileageDesc">Пробег низходящо</option>
                 </select>
             </div>
             <div>
