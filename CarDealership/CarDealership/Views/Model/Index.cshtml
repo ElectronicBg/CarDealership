@@ -1,31 +1,54 @@
-﻿@model IEnumerable<CarDealership.Models.Model>
+﻿@model IEnumerable<IGrouping<string, CarDealership.Models.Model>>
+
 @{
     ViewData["Title"] = "Models List";
 }
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</head>
 
-<div class="container">
-    <h2>Models List</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Brand</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var carModel in Model)
-            {
-                <tr>
-                    <td>@carModel.Name</td>
-                    <td>@carModel.Brand.Name</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@carModel.ModelId" class="btn btn-primary">Edit</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="container" style="min-height:75vh;">
+    <h2>Списък с Модели</h2>
 
-    <a asp-action="Create" class="btn btn-success">Add New Model</a>
+    <div id="accordion">
+        @foreach (var brandGroup in Model)
+        {
+            <div class="card">
+                <div class="card-header" id="heading@(brandGroup.Key)">
+                    <h5 class="mb-0">
+                        <button class="btn border-0" data-toggle="collapse" data-target="#collapse@(brandGroup.Key)" aria-expanded="true" aria-controls="collapse@(brandGroup.Key)">
+                            @brandGroup.Key
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapse@(brandGroup.Key)" class="collapse" aria-labelledby="heading@(brandGroup.Key)" data-parent="#accordion">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Име</th>
+                                    <th>Опции</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var carModel in brandGroup)
+                                {
+                                    <tr>
+                                        <td>@carModel.Name</td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@carModel.ModelId" class="btn btn-primary">Редактирай</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <a asp-action="Create" class="btn btn-success mt-3">Добави нов Модел</a>
 </div>

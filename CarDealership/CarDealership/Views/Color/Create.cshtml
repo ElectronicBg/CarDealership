@@ -4,22 +4,22 @@
 }
 
 <div class="container vh-100">
-    <h2>Create Color</h2>
+    <h2>Добави Цвят</h2>
     <form method="post" asp-action="Create">
         <div class="form-group">
-            <label asp-for="Name" class="form-label"></label>
+            <label asp-for="Name" class="form-label">Име</label>
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Value" class="form-label"></label>
+            <label asp-for="Value" class="form-label">HEX Стойност</label>
             <input asp-for="Value" class="form-control" />
             <span asp-validation-for="Value" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary">Add Color</button>
+        <button type="submit" class="btn btn-primary mt-3">Добави Цвят</button>
     </form>
 
-    <a asp-action="Index" class="btn btn-secondary">Back to Colors List</a>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Върни се към списъка с Цветове</a>
 </div>

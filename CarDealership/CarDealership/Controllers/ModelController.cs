@@ -17,8 +17,13 @@ public class ModelController : Controller
     // GET: Model/Index
     public IActionResult Index()
     {
-        var models = _context.Models.Include(m => m.Brand).ToList();
-        return View(models);
+        var modelsByBrand = _context.Models
+            .Include(m => m.Brand)
+            .OrderBy(m => m.Brand.Name)
+            .ToList()
+            .GroupBy(m => m.Brand.Name); // Group models by brand name
+
+        return View(modelsByBrand);
     }
 
     // GET: Model/Create

@@ -4,7 +4,7 @@
 }
 
 <div class="container" style="min-height:75vh;">
-    <h2>Colors List</h2>
+    <h2>Списък с Цветове</h2>
     <div class="row">
         @foreach (var color in Model)
         {
@@ -13,12 +13,12 @@
                     <div class="card-body">
                         <h5 class="card-title">@color.Name</h5>
                         <div class="color-display mb-2 rounded-3" style="width:20px; height:20px; background-color: @color.Value;"></div>
-                        <a href="@Url.Action("Edit", new { id = color.CarColorId })" class="btn btn-primary">Edit</a>
+                        <a href="@Url.Action("Edit", new { id = color.CarColorId })" class="btn btn-primary">Редактирай</a>
                     </div>
                 </div>
             </div>
         }
     </div>
 
-    <a asp-action="Create" class="btn btn-success">Add New Color</a>
+    <a asp-action="Create" class="btn btn-success">Добави нов Цвят</a>
 </div>

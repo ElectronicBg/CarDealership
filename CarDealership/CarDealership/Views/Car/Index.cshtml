@@ -26,14 +26,14 @@
                         <h5 class="card-title">@car.Brand.Name @car.Model.Name</h5>
                         <p class="card-text">
                             <strong>Тип на двигателя:</strong> @EnumHelper.GetDisplayName(car.EngineType)<br>
-                            <strong>Тип на скоростната кутия:</strong> @car.TransmissionType<br>
+                            <strong>Тип на скоростната кутия:</strong> @EnumHelper.GetDisplayName(car.TransmissionType)<br>
                             <strong>Цвят на колата:</strong> @car.CarColor.Name<br>
                             <strong>Регион:</strong> @EnumHelper.GetDisplayName(car.Region)<br>
                             <strong>Година:</strong> @car.Year<br>
                             <strong>Пробег:</strong> @car.Mileage км<br>
                             <strong>Мощност:</strong> @car.Power<br>
-                            <strong>Тип на колата:</strong> @car.CarType<br>
-                            <strong>Състояние:</strong> @car.Condition<br>
+                            <strong>Тип на колата:</strong> @EnumHelper.GetDisplayName(car.CarType)<br>
+                            <strong>Състояние:</strong> @EnumHelper.GetDisplayName(car.Condition)<br>
                             <strong>Цена:</strong> @car.Price
                         </p>
 

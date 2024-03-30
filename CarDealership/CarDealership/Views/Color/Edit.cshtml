@@ -2,26 +2,26 @@
 @{
     ViewData["Title"] = "Edit Color";
 }
-<div class="container vh-100">
-    <h2>Edit Color</h2>
+<div class="container" style="min-height:75vh;">
+    <h2>Редактирай Цвета</h2>
     <form method="post" asp-action="Edit">
         <input type="hidden" asp-for="CarColorId" />
 
         <div class="form-group">
-            <label asp-for="Name" class="form-label"></label>
+            <label asp-for="Name" class="form-label">Име</label>
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Value" class="form-label"></label>
+            <label asp-for="Value" class="form-label">HEX Стойност</label>
             <input asp-for="Value" class="form-control" />
             <span asp-validation-for="Value" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Color</button>
+        <button type="submit" class="btn btn-primary mt-3">Обнови Цвета</button>
     </form>
 
-    <a asp-action="Index" class="btn btn-secondary">Back to Colors List</a>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Върни се към списъка с Цветове</a>
 </div>
 
