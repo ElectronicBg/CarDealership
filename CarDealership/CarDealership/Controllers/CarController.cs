@@ -85,14 +85,13 @@ namespace CarDealership.Controllers
             // Repopulate dropdowns or other data as needed
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
-
+/*
             var errors = ModelState.Values.SelectMany(v => v.Errors)
                                   .Select(e => e.ErrorMessage)
-                                  .ToList();
+                                  .ToList();*/
 
             // Return a JSON result with success status (false in this case)
-            return Json(new { success = false, errors });
-            //return View(car);
+            return Json(new { success = false});
         }
 
 

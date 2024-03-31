@@ -13,76 +13,89 @@
                 <div class="form-group">
                     <label asp-for="BrandId" class="form-label">Марка</label>
                     <select asp-for="BrandId" asp-items="@(new SelectList(ViewBag.Brands, "BrandId", "Name"))" class="form-control" id="brandDropdown">
-                        <option value="">Избери Марка</option>
+                        <option value="" disabled selected>Избери Марка</option>
                     </select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="ModelId" class="form-label">Модел</label>
                     <select asp-for="ModelId" asp-items="@(new SelectList(ViewBag.Models, "ModelId", "Name"))" class="form-control" id="modelDropdown">
-                        <option value="">Избери Модел</option>
+                        <option value="" disabled selected>Избери Модел</option>
                     </select>
+                    <span asp-validation-for="ModelId" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="EngineType" class="form-label">Тип на Двигателя</label>
                     <select asp-for="EngineType" asp-items="Html.GetEnumSelectList<EngineType>()" class="form-control">
-                        <option value="">Избери тип на Двигателя</option>
+                        <option value="" disabled selected>Избери тип на Двигателя</option>
                     </select>
+                    <span asp-validation-for="EngineType" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="TransmissionType" class="form-label">Тип на Трансмисията</label>
                     <select asp-for="TransmissionType" asp-items="Html.GetEnumSelectList<TransmissionType>()" class="form-control">
-                        <option value="">Избери тип на Трансмисията</option>
+                        <option value="" disabled selected>Избери тип на Трансмисията</option>
                     </select>
+                    <span asp-validation-for="TransmissionType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="CarColorId" class="form-label">Цвят</label>
                     <select asp-for="CarColorId" asp-items="@(new SelectList(ViewBag.CarColors, "CarColorId", "Name"))" class="form-control">
-                        <option value="">Избери Цвят на колата</option>
+                        <option value="" disabled selected>Избери Цвят на колата</option>
                     </select>
+                    <span asp-validation-for="CarColorId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Region" class="form-label">Област</label>
                     <select asp-for="Region" asp-items="Html.GetEnumSelectList<CarDealership.Models.Enums.Region>()" class="form-control">
-                        <option value="">Избери Област</option>
+                        <option value="" disabled selected>Избери Област</option>
                     </select>
+                    <span asp-validation-for="Region" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Year" class="form-label">Година на Производство</label>
                     <input asp-for="Year" class="form-control" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Mileage" class="form-label">Пробег</label>
-                    <input asp-for="Mileage" class="form-control" type="number" min="0" />
+                    <input asp-for="Mileage" class="form-control" type="number" />
+                    <span asp-validation-for="Mileage" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Power" class="form-label">Мощност на двигателя</label>
-                    <input asp-for="Power" class="form-control" type="number" min="0" />
+                    <input asp-for="Power" class="form-control" type="number" />
+                    <span asp-validation-for="Power" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="CarType" class="form-label">Тип на Купето</label>
                     <select asp-for="CarType" asp-items="Html.GetEnumSelectList<CarType>()" class="form-control">
-                        <option value="">Избери тип на Купето</option>
+                        <option value="" disabled selected>Избери тип на Купето</option>
                     </select>
+                    <span asp-validation-for="CarType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Condition" class="form-label">Състояние</label>
                     <select asp-for="Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control">
-                        <option value="">Избери Състояние</option>
+                        <option value="" disabled selected>Избери Състояние</option>
                     </select>
+                    <span asp-validation-for="Condition" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Price" class="form-label">Цена</label>
-                    <input asp-for="Price" class="form-control" type="number" min="0" />
+                    <input asp-for="Price" class="form-control" type="number" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
 
                 <input asp-for="@Model.CarId" class="d-none" id="currentCarId" value="@Model.CarId" />
 
                 <input asp-controller="Car" asp-action="Edit" type="submit" value="Обнови" class="btn btn-primary mt-2" />
             </form>
+            <a asp-action="Index" class="btn btn-secondary mt-3">Върни се към списъка с Коли</a>
         </div>
         <div class="col-6">
             <div class="modal-body d-flex flex-column gap-2" style="max-height:100vh; overflow-x: hidden;">
@@ -100,7 +113,7 @@
             <div class="form-group">
                 <label asp-for="@photo">Линк към Снимка</label>
                 <input asp-for="@photo" id="photoUrl" name="photoUrl" class="form-control" />
-                <span asp-validation-for="@photo" class="text-danger"></span>
+                <span asp-validation-for="Photos" class="text-danger"></span>
                 <small class="form-text text-muted">Въведи линк към снимка</small>
             </div>
 
@@ -117,7 +130,7 @@
                 var brandId = $(this).val();
 
                 // Clear existing options in the model dropdown
-                $('#modelDropdown').html('<option value="">Избери Модел</option>');
+                $('#modelDropdown').html('<option value=""disabled selected>Избери Модел</option>');
 
                 if (brandId) {
                     // Use Url.Action to generate the correct URL
@@ -191,4 +204,6 @@
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 }

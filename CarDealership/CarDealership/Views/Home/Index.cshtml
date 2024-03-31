@@ -87,7 +87,7 @@
         // Function to fetch and populate models based on the selected brand
         function fetchAndPopulateModels(brandId) {
             // Clear existing options in the model dropdown
-            $('#modelDropdown').html('<option value="">Избери Модел</option>');
+            $('#modelDropdown').html('<option value=""disabled selected>Избери Модел</option>');
 
             if (brandId) {
                 // Use Url.Action to generate the correct URL
