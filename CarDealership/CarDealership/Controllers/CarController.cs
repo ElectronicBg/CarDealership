@@ -86,8 +86,13 @@ namespace CarDealership.Controllers
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
 
+            var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                  .Select(e => e.ErrorMessage)
+                                  .ToList();
+
             // Return a JSON result with success status (false in this case)
-            return Json(new { success = false });
+            return Json(new { success = false, errors });
+            //return View(car);
         }
 
 
