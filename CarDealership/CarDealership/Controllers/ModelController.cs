@@ -15,6 +15,7 @@ public class ModelController : Controller
     }
 
     // GET: Model/Index
+    [HttpGet]
     public IActionResult Index()
     {
         var modelsByBrand = _context.Models
@@ -27,6 +28,7 @@ public class ModelController : Controller
     }
 
     // GET: Model/Create
+    [HttpGet]
     public IActionResult Create()
     {
         ViewBag.Brands = _context.Brands.ToList();
@@ -50,6 +52,7 @@ public class ModelController : Controller
     }
 
     // GET: Model/Edit/5
+    [HttpGet]
     public IActionResult Edit(int? id)
     {
         if (id == null)

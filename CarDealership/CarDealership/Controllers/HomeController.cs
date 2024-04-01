@@ -20,6 +20,7 @@ namespace CarDealership.Controllers
             _context = context;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var model = new SearchViewModel();

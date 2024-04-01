@@ -227,6 +227,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 </style>
+
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -273,12 +274,54 @@
             fetchAndPopulateModels(brandId);
         });
     </script>
+
     <script>
         function changePage(pageNumber) {
             document.getElementById("pageNumberInput").value = pageNumber;
             document.getElementById("paginationForm").submit();
         }
     </script>
+
+    <script>
+        function generatePaginationNumbers(currentPage, totalPages) {
+            var paginationList = document.getElementById("paginationList");
+
+            // Check if paginationList exists before proceeding
+            if (!paginationList) {
+                console.error("paginationList element not found.");
+                return;
+            }
+
+            paginationList.innerHTML = ""; // Clear existing pagination items
+            var startPage = Math.max(1, currentPage - 1);
+            var endPage = Math.min(totalPages, startPage + 2);
+
+            // If on the last page, adjust startPage and endPage accordingly
+            if (endPage === totalPages) {
+                startPage = Math.max(1, endPage - 2); // Ensure to show 3 pages
+            }
+
+            for (var i = startPage; i <= endPage; i++) {
+                var listItem = document.createElement("li");
+                listItem.className = "page-item " + (i === currentPage ? "active" : "");
+                var link = document.createElement("a");
+                link.className = "page-link btn  rounded-circle";
+                link.href = "javascript:void(0);";
+                link.textContent = i;
+                link.setAttribute("onclick", "changePage(" + i + ")");
+                listItem.appendChild(link);
+                paginationList.appendChild(listItem);
+            }
+        }
+
+        // Call the function initially only if currentPage and totalPages are defined
+        if (@(ViewBag.CurrentPage) && @(ViewBag.TotalPages)) {
+            generatePaginationNumbers(@(ViewBag.CurrentPage), @(ViewBag.TotalPages));
+        } else {
+            console.error("ViewBag.CurrentPage or ViewBag.TotalPages is null or undefined.");
+        }
+    </script>
+
     <script>
         $(document).ready(function () {
             // Cache the additionalFields element for better performance
@@ -451,46 +494,6 @@
             $('#MinYear').val(minYear);
             $('#MaxYear').val(maxYear);
         });
-    </script>
-
-    <script>
-        function generatePaginationNumbers(currentPage, totalPages) {
-            var paginationList = document.getElementById("paginationList");
-
-            // Check if paginationList exists before proceeding
-            if (!paginationList) {
-                console.error("paginationList element not found.");
-                return;
-            }
-
-            paginationList.innerHTML = ""; // Clear existing pagination items
-            var startPage = Math.max(1, currentPage - 1);
-            var endPage = Math.min(totalPages, startPage + 2);
-
-            // If on the last page, adjust startPage and endPage accordingly
-            if (endPage === totalPages) {
-                startPage = Math.max(1, endPage - 2); // Ensure to show 3 pages
-            }
-
-            for (var i = startPage; i <= endPage; i++) {
-                var listItem = document.createElement("li");
-                listItem.className = "page-item " + (i === currentPage ? "active" : "");
-                var link = document.createElement("a");
-                link.className = "page-link btn  rounded-circle";
-                link.href = "javascript:void(0);";
-                link.textContent = i;
-                link.setAttribute("onclick", "changePage(" + i + ")");
-                listItem.appendChild(link);
-                paginationList.appendChild(listItem);
-            }
-        }
-
-        // Call the function initially only if currentPage and totalPages are defined
-        if (@(ViewBag.CurrentPage) && @(ViewBag.TotalPages)) {
-            generatePaginationNumbers(@(ViewBag.CurrentPage), @(ViewBag.TotalPages));
-        } else {
-            console.error("ViewBag.CurrentPage or ViewBag.TotalPages is null or undefined.");
-        }
     </script>
 
     <script>

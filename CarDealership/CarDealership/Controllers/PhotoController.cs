@@ -15,6 +15,7 @@ public class PhotoController : Controller
     }
 
     // GET: Photo/Index
+    [HttpGet]
     public IActionResult Index()
     {
         var photosByCar = _context.Photos
@@ -26,6 +27,7 @@ public class PhotoController : Controller
     }
 
     // GET: Photo/Create
+    [HttpGet]
     public IActionResult Create()
     {
         ViewBag.Cars = _context.Cars.ToList();

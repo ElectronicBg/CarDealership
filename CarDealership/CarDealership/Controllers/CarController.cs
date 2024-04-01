@@ -82,13 +82,9 @@ namespace CarDealership.Controllers
                 return Json(new { success = true, redirectUrl = Url.Action("Index", "Car") });
             }
 
-            // Repopulate dropdowns or other data as needed
+            // Repopulate dropdowns 
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.CarColors = _context.CarColors.ToList();
-/*
-            var errors = ModelState.Values.SelectMany(v => v.Errors)
-                                  .Select(e => e.ErrorMessage)
-                                  .ToList();*/
 
             // Return a JSON result with success status (false in this case)
             return Json(new { success = false});
@@ -326,7 +322,7 @@ namespace CarDealership.Controllers
             {
                 return NotFound();
             }
-
+            ModelState.Remove("Photos");
             if (ModelState.IsValid)
             {
                 // Retrieve the existing car from the database
@@ -356,7 +352,14 @@ namespace CarDealership.Controllers
                 .Where(m => m.BrandId == editedCar.BrandId)
                 .ToList();
 
-            return View("Index");
+            var car = _context.Cars
+                .Include(c => c.Brand)
+                .Include(c => c.Model)
+                .Include(c => c.CarColor)
+                .Include(c => c.Photos)
+                .FirstOrDefault(c => c.CarId == id);
+
+            return View("Edit",car);
         }
 
         [HttpPost]

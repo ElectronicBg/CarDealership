@@ -14,6 +14,7 @@ public class ColorController : Controller
         _context = context;
     }
     // GET: Color/Index
+    [HttpGet]
     public IActionResult Index()
     {
         var colors = _context.CarColors.ToList();
@@ -21,6 +22,7 @@ public class ColorController : Controller
     }
 
     // GET: Color/Create
+    [HttpGet]
     public IActionResult Create()
     {
         return View();
@@ -41,6 +43,7 @@ public class ColorController : Controller
     }
 
     // GET: Color/Edit/5
+    [HttpGet]
     public IActionResult Edit(int? id)
     {
         if (id == null)

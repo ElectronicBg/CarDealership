@@ -14,7 +14,15 @@ public class BrandController : Controller
         _context = context;
     }
 
+    [HttpGet]
+    public IActionResult Index()
+    {
+        var brands = _context.Brands.ToList();
+        return View(brands);
+    }
+
     // GET: Brand/Create
+    [HttpGet]
     public IActionResult Create()
     {
         return View();
@@ -35,6 +43,7 @@ public class BrandController : Controller
     }
 
     // GET: Brand/Edit/5
+    [HttpGet]
     public IActionResult Edit(int? id)
     {
         if (id == null)
@@ -87,11 +96,5 @@ public class BrandController : Controller
     private bool BrandExists(int id)
     {
         return _context.Brands.Any(e => e.BrandId == id);
-    }
-
-    public IActionResult Index()
-    {
-        var brands = _context.Brands.ToList();
-        return View(brands);
     }
 }
