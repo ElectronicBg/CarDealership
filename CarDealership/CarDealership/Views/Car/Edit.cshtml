@@ -106,7 +106,7 @@
 
                     @if (Model.Photos.Count() > 1)
                     {
-                        <button type="button" class="btn btn-danger delete-btn" data-photo-id="@image.PhotoId">Изтрий</button>
+                        <button type="button" class="btn btn-danger delete-btn" data-photo-id="@image.PhotoId" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете тази снимка?');">Изтрий</button>
                     }
                 }
             </div>
@@ -124,6 +124,7 @@
 </div>
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
             $(document).on('change', '#brandDropdown', function () {

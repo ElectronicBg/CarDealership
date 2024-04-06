@@ -29,6 +29,7 @@ namespace CarDealership.Controllers
             // Pagination
             pageSize = pageSize ?? 6; // Default page size is 6
             pageNumber = pageNumber ?? 1; // Default page number is 1
+
             ViewBag.PageSize = pageSize.Value;
             ViewBag.CurrentPage = pageNumber.Value;
             ViewBag.TotalPages = (int)Math.Ceiling((double)cars.Count() / pageSize.Value);

@@ -25,18 +25,8 @@ namespace CarDealership.Controllers
         {
             var model = new SearchViewModel();
 
-            ViewBag.TopCars = _context.Cars
-                .Include(c => c.Brand)
-                .Include(c => c.CarColor)
-                .Include(c => c.Model)
-                .Include(c => c.Photos).ToList()
-                .AsQueryable()
-                .OrderByDescending(c => c.Price)
-                .Take(6)
-                .ToList();
-
             ViewBag.Brands = _context.Brands.ToList();
-            ViewBag.CarColors = _context.CarColors.ToList();
+
             return View(model);
         }
 

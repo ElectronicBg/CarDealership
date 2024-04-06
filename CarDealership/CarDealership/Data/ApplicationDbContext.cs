@@ -25,6 +25,5 @@ namespace CarDealership.Data
         public DbSet<Model> Models { get; set; }
         public DbSet<CarColor> CarColors { get; set; }
         public DbSet<Photo> Photos { get; set; }
-
     }
 }
