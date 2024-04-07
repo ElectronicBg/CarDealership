@@ -115,6 +115,7 @@
                 <input asp-for="@photo" id="photoUrl" name="photoUrl" class="form-control" />
                 <span asp-validation-for="Photos" class="text-danger"></span>
                 <small class="form-text text-muted">Въведи линк към снимка</small>
+                <div id="photoCount">Текущ брой снимки в опашка: 0</div>
             </div>
 
             <button type="button" id="addPhotoBtn" class="btn btn-secondary">Добави снимка към опашката</button>
@@ -152,6 +153,10 @@
         $(document).ready(function () {
             var photo = [];
 
+            function updatePhotoCount() {
+                $('#photoCount').text('Текущ брой снимки в опашка: ' + photo.length);
+            }
+
             // Event handler for the "Add Photo" button
             $("#addPhotoBtn").on('click', function () {
                 var photoUrlInput = $("#photoUrl");
@@ -159,7 +164,10 @@
 
                 // Add the new URL to the array if not empty
                 if (newUrl.trim() !== "") {
-                    photo.push(newUrl); 
+                    photo.push(newUrl);
+
+                    // Update the photo count
+                    updatePhotoCount();
 
                     // Clear the input field
                     photoUrlInput.val('');

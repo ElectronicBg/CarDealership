@@ -2,6 +2,7 @@ using CarDealership.Data;
 using CarDealership.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -79,7 +80,18 @@ app.MapRazorPages();
 //Seed Roles
 using (var scope = app.Services.CreateScope())
 {
+    var serviceProvider = scope.ServiceProvider;
     await DbSeeder.SeedRolesAndAdminAsync(scope.ServiceProvider);
+
+    var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+
+    var dbSeeder = new DbSeeder(); 
+
+    await dbSeeder.SeedBrands(dbContext);
+    await dbSeeder.SeedModels(dbContext);
+    await dbSeeder.SeedCarColors(dbContext);
+    await dbSeeder.SeedCars(dbContext);
+    await dbSeeder.SeedPhotos(dbContext);
 }
 
 app.Run();
