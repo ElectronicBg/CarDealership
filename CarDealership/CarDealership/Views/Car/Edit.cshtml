@@ -106,7 +106,8 @@
 
                     @if (Model.Photos.Count() > 1)
                     {
-                        <button type="button" class="btn btn-danger delete-btn" data-photo-id="@image.PhotoId" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете тази снимка?');">Изтрий</button>
+
+                        <button type="submit" class="btn btn-danger delete-btn" data-photo-id="@image.PhotoId" onsubmit="return confirm('Сигурни ли сте, че искате да изтриете тази снимка?');">Изтрий</button>
                     }
                 }
             </div>
