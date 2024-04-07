@@ -75,12 +75,10 @@ namespace CarDealership.Data
             // Create models for each brand
             var models = new List<Model>
         {
-            // Models for Brand with BrandId = 1 (e.g., Toyota)
             new Model { BrandId = 1, Name = "Corolla" },
             new Model { BrandId = 1, Name = "Camry" },
             new Model { BrandId = 1, Name = "Rav4" },
 
-            // Models for Brand with BrandId = 2 (e.g., Honda)
             new Model { BrandId = 2, Name = "Civic" },
             new Model { BrandId = 2, Name = "Accord" },
             new Model { BrandId = 2, Name = "CR-V" },
@@ -91,52 +89,39 @@ namespace CarDealership.Data
             new Model { BrandId = 3, Name = "Explorer" },
             new Model { BrandId = 3, Name = "Mustang" },
 
-            // Models for Chevrolet (BrandId = 6)
+            // Models for Chevrolet 
             new Model { BrandId = 4, Name = "Camaro" },
             new Model { BrandId = 4, Name = "Silverado" },
             new Model { BrandId = 4, Name = "Equinox" },
             new Model { BrandId = 4, Name = "Tahoe" },
             new Model { BrandId = 4, Name = "Malibu" },
 
-            // Models for Volkswagen (BrandId = 7)
+            // Models for Volkswagen 
             new Model { BrandId = 5, Name = "Golf" },
             new Model { BrandId = 5, Name = "Passat" },
-            new Model { BrandId = 5, Name = "Jetta" },
-            new Model { BrandId = 5, Name = "Tiguan" },
-            new Model { BrandId = 5, Name = "Atlas" },
 
-            // Models for BMW (BrandId = 8)
+            // Models for BMW 
             new Model { BrandId = 6, Name = "3 Series" },
             new Model { BrandId = 6, Name = "5 Series" },
-            new Model { BrandId = 6, Name = "X3" },
-            new Model { BrandId = 6, Name = "X5" },
-            new Model { BrandId = 6, Name = "7 Series" },
 
             // Models for Mercedes-Benz (BrandId = 9)
             new Model { BrandId = 7, Name = "C-Class" },
-            new Model { BrandId = 7, Name = "E-Class" },
             new Model { BrandId = 7, Name = "S-Class" },
-            new Model { BrandId = 7, Name = "GLC" },
             new Model { BrandId = 7, Name = "GLE" },
 
-            // Models for Audi (BrandId = 10)
+            // Models for Audi 
             new Model { BrandId = 8, Name = "A3" },
             new Model { BrandId = 8, Name = "A4" },
-            new Model { BrandId = 8, Name = "Q5" },
-            new Model { BrandId = 8, Name = "Q7" },
             new Model { BrandId = 8, Name = "TT" },
 
-            // Models for Nissan (BrandId = 11)
+            // Models for Nissan 
             new Model { BrandId = 9, Name = "Altima" },
             new Model { BrandId = 9, Name = "Sentra" },
-            new Model { BrandId = 9, Name = "Rogue" },
             new Model { BrandId = 9, Name = "Pathfinder" },
-            new Model { BrandId = 9, Name = "Maxima" },
 
-            // Models for Hyundai (BrandId = 12)
+
+            // Models for Hyundai 
             new Model { BrandId = 10, Name = "Elantra" },
-            new Model { BrandId = 10, Name = "Sonata" },
-            new Model { BrandId = 10, Name = "Tucson" },
             new Model { BrandId = 10, Name = "Santa Fe" },
             new Model { BrandId = 10, Name = "Kona" },
         };
@@ -159,7 +144,7 @@ namespace CarDealership.Data
             new CarColor { Name = "Черен", Value = "#000000" },
             new CarColor { Name = "Бял", Value = "#FFFFFF" },
             new CarColor { Name = "Червен", Value = "#FF0000" },
-            new CarColor { Name = "Син", Value = "#0000FF" },
+            new CarColor { Name = "Син", Value = "#808080" },
             new CarColor { Name = "Сив", Value = "#0000FF" },
             new CarColor { Name = "Зелен", Value = "#008000" },
             new CarColor { Name = "Жълт", Value = "#FFFF00" },
@@ -365,8 +350,259 @@ namespace CarDealership.Data
                 Condition = Condition.Used,
                 Price = 28000,
                 Photos=new List<Photo>()
+            },
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Toyota").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Camry").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Черен").CarColorId,
+                Region = Region.Veliko_Tarnovo,
+                Year = 2020,
+                Mileage = 20000,
+                Power = 150,
+                CarType = CarType.Sedan,
+                Condition = Condition.Used,
+                Price = 30000,
+                Photos = new List<Photo>()
+            },
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Honda").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Accord").ModelId,
+                EngineType = EngineType.Hybrid,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Сив").CarColorId,
+                Region = Region.Vidin,
+                Year = 2020,
+                Mileage = 0,
+                Power = 150,
+                CarType = CarType.Sedan,
+                Condition = Condition.New,
+                Price = 20000,
+                Photos = new List<Photo>()
+            },
+            // Creating a car for Honda CR-V
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Honda").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "CR-V").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Черен").CarColorId,
+                Region = Region.Stara_Zagora,
+                Year = 2012,
+                Mileage = 20000,
+                Power = 150,
+                CarType = CarType.SUV,
+                Condition = Condition.Used,
+                Price = 10000,
+                Photos = new List<Photo>()
+            },
+            // Creating a car for Ford Focus
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Ford").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Focus").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Manual,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Син").CarColorId,
+                Region = Region.Blagoevgrad,
+                Year = 2020,
+                Mileage = 20000,
+                Power = 120,
+                CarType = CarType.Sedan,
+                Condition = Condition.Used,
+                Price = 18000,
+                Photos = new List<Photo>()
+            },
+
+            // Creating a car for Ford Explorer
+             new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Ford").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Explorer").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Сив").CarColorId,
+                Region = Region.Vratsa,
+                Year = 2019,
+                Mileage = 30000,
+                Power = 250,
+                CarType = CarType.SUV,
+                Condition = Condition.Used,
+                Price = 35000,
+                Photos = new List<Photo>()
+            },
+
+            // Creating a car for Ford Mustang
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Ford").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Mustang").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Manual,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Червен").CarColorId,
+                Region = Region.Targovishte,
+                Year = 2018,
+                Mileage = 25000,
+                Power = 350,
+                CarType = CarType.Sedan,
+                Condition = Condition.Used,
+                Price = 40000,
+                Photos = new List<Photo>()
+            },
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Volkswagen").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Passat").ModelId,
+                EngineType = EngineType.Diesel,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Сив").CarColorId,
+                Region = Region.Veliko_Tarnovo,
+                Year = 2020,
+                Mileage = 18000,
+                Power = 160,
+                CarType = CarType.Sedan,
+                Condition = Condition.Used,
+                Price = 28000,
+                Photos = new List<Photo>()
+            },
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Mercedes-Benz").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "S-Class").ModelId,
+                EngineType = EngineType.Hybrid,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Бял").CarColorId,
+                Region = Region.Sofia_Capital,
+                Year = 2021,
+                Mileage = 10000,
+                Power = 320,
+                CarType = CarType.Sedan,
+                Condition = Condition.New,
+                Price = 100000,
+                Photos = new List<Photo>()
+            },
+            // Creating a car for Mercedes-Benz GLE
+             new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Mercedes-Benz").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "GLE").ModelId,
+                EngineType = EngineType.Diesel,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Черен").CarColorId,
+                Region = Region.Sofia,
+                Year = 2020,
+                Mileage = 25000,
+                Power = 280,
+                CarType = CarType.SUV,
+                Condition = Condition.Used,
+                Price = 80000,
+                Photos = new List<Photo>()
+            },
+             new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Audi").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "A4").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Син").CarColorId,
+                Region = Region.Shumen,
+                Year = 2020,
+                Mileage = 20000,
+                Power = 190,
+                CarType = CarType.Sedan,
+                Condition = Condition.Used,
+                Price = 35000,
+                Photos = new List<Photo>()
+            },
+            // Creating a car for Audi TT
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Audi").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "TT").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Червен").CarColorId,
+                Region = Region.Shumen,
+                Year = 2019,
+                Mileage = 25000,
+                Power = 230,
+                CarType = CarType.Hatchback,
+                Condition = Condition.Used,
+                Price = 40000,
+                Photos = new List<Photo>()
+            },
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Nissan").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Sentra").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Сив").CarColorId,
+                Region = Region.Silistra,
+                Year = 2020,
+                Mileage = 18000,
+                Power = 150,
+                CarType = CarType.Sedan,
+                Condition = Condition.Used,
+                Price = 20000,
+                Photos = new List<Photo>()
+            },
+            // Creating a car for Nissan Pathfinder
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Nissan").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Pathfinder").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Черен").CarColorId,
+                Region = Region.Yambol,
+                Year = 2019,
+                Mileage = 25000,
+                Power = 250,
+                CarType = CarType.SUV,
+                Condition = Condition.Used,
+                Price = 35000,
+                Photos = new List<Photo>()
+            },
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Hyundai").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Santa Fe").ModelId,
+                EngineType = EngineType.Petrol,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Сив").CarColorId,
+                Region = Region.Shumen,
+                Year = 2020,
+                Mileage = 20000,
+                Power = 180,
+                CarType = CarType.SUV,
+                Condition = Condition.Used,
+                Price = 30000,
+                Photos = new List<Photo>()
+            },
+            // Creating a car for Hyundai Kona
+            new Car
+            {
+                BrandId = brands.FirstOrDefault(b => b.Name == "Hyundai").BrandId,
+                ModelId = models.FirstOrDefault(m => m.Name == "Kona").ModelId,
+                EngineType = EngineType.Hybrid,
+                TransmissionType = TransmissionType.Automatic,
+                CarColorId = carColors.FirstOrDefault(c => c.Name == "Червен").CarColorId,
+                Region = Region.Shumen,
+                Year = 2019,
+                Mileage = 25000,
+                Power = 150,
+                CarType = CarType.SUV,
+                Condition = Condition.Used,
+                Price = 25000,
+                Photos = new List<Photo>()
             }
         };
+
 
             // Add cars to the database
             await context.Cars.AddRangeAsync(cars);
@@ -410,6 +646,22 @@ namespace CarDealership.Data
             new Photo { CarId = 10, Url = "https://getrentacar.com/storage/cache/images/960-640-100-fit-230834.jpeg" },
             // Photos for Car 11
             new Photo { CarId = 11, Url = "https://carsguide-res.cloudinary.com/image/upload/f_auto,fl_lossy,q_auto,t_cg_hero_large/v1/editorial/2020-Toyota-RAV4-GXL-Hybrid-2WD-SUV-blue-Tung-Nguyen-1001x565p-%281%29.jpg" },
+             new Photo { CarId = 12, Url = "https://s3-prod.autonews.com/s3fs-public/COROLLA-MAIN_i.jpg" },
+            /* new Photo { CarId = 13,Url="https://scene7.toyota.eu/is/image/toyotaeurope/CAM0004a_21-1:Medium-Landscape?ts=0&resMode=sharp2&op_usm=1.75,0.3,2,0"}*/
+             new Photo { CarId = 13,Url="https://di-uploads-pod11.dealerinspire.com/hondaofkirkland/uploads/2020/02/2020-Accord-Crystal-Black-Pearl.png"},
+             new Photo { CarId = 14,Url="https://editorial.pxcrush.net/carsales/general/editorial/honda-cr-v-black-edition-01.jpg?width=1024&height=682"},
+             new Photo { CarId = 15,Url="https://carsguide-res.cloudinary.com/image/upload/f_auto%2Cfl_lossy%2Cq_auto%2Ct_default/v1/editorial/review/hero_image/2020-ford-focus-st-au-hatch-blue-dean-mccartney-1001x565-%281%29.jpg"},
+             new Photo { CarId = 16,Url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq-aUbncJ1Pgw5BekhX1gi7Onz7MA4lIFan-yUw_r9MQ&s"},
+             new Photo { CarId = 17,Url="https://images.ctfassets.net/uaddx06iwzdz/6w3WbaufrPylttArJPqS36/a4a52ac6901cfcb1b578f19e8644dbbe/ford-mustang-l-01.jpg"},
+             new Photo { CarId = 18,Url="https://image.usedcarsni.com/photos/000/330/918/470/332054682.1920.jpg"},
+             new Photo { CarId = 19,Url="https://di-uploads-pod20.dealerinspire.com/mercedesbenznewmarket/uploads/2021/09/s-classcoloursog.jpeg"},
+             new Photo { CarId = 20,Url="https://mgt-auto.bg/wp-content/uploads/2023/09/1-17.jpg.webp"},
+             new Photo { CarId = 21,Url="https://www.carscoops.com/wp-content/uploads/2019/05/2db4d6e0-2020-audi-a4-44-1024x555.jpg"},
+             new Photo { CarId = 22,Url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTykTSqgU-a5OjUbeniF0qMg3KUTL6bCY2iRfxQOP-erQ&s"},
+             new Photo { CarId = 23,Url="https://www.shopsar.com/v/vspfiles/assets/images/FE7-SENTRA20.1-900.jpg"},
+             new Photo { CarId = 24,Url="https://di-uploads-pod4.dealerinspire.com/garbernissanredesign/uploads/2018/09/Pathfinder_MY2019_13-1024x683.jpg"},
+             new Photo { CarId = 25,Url="https://65e81151f52e248c552b-fe74cd567ea2f1228f846834bd67571e.ssl.cf1.rackcdn.com/ldm-images/2020-Hyundai-Santa-Fe-Machine-Grey-Color.jpg"},
+             new Photo { CarId = 26,Url="https://www.hyundainews.com/assets/images/hero/34499-2019HyundaiKonaElectric29.jpg"},
         };
 
             // Add photos to the database

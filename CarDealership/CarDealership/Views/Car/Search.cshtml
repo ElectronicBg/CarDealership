@@ -125,9 +125,9 @@
             <div>
                 <label for="pageSize">Размер на страницата:</label>
                 <select asp-for="PageSize" id="pageSize" name="pageSize" class="form-control">
-                    <option value="6">5</option>
-                    <option value="12">10</option>
-                    <option value="15">15</option>
+                    <option value="6">Малък</option>
+                    <option value="12">Среден</option>
+                    <option value="15">Голям</option>
                 </select>
             </div>
         </div>
@@ -309,6 +309,10 @@
                 link.href = "javascript:void(0);";
                 link.textContent = i;
                 link.setAttribute("onclick", "changePage(" + i + ")");
+                if (i === currentPage) {
+                    link.style.backgroundColor = "#08c2df";
+                    link.style.border = "none";
+                }
                 listItem.appendChild(link);
                 paginationList.appendChild(listItem);
             }
